@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
+/* ===================================
+   SENTIERI DESIGN SYSTEM
+   ================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors */
+  --cream: #FFF8E7;
+  --header-beige: #ECE1B9;
+  --stelle-green: #CFDCCB;
+  --sogni-pink: #FEECE9;
+  --black: #000000;
+
+  /* Spacing */
+  --header-height: 55px;
+  --sidebar-width: 46px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 18px;
+  --space-lg: 40px;
+  --space-xl: 60px;
+  --space-2xl: 80px;
+  --space-3xl: 110px;
+  --space-4xl: 130px;
+
+  /* Typography - Font Families */
+  --font-display: 'Abordage', Georgia, serif;
+  --font-body: 'Meridien LT Std', 'Times New Roman', serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Extend Tailwind with custom colors */
+  --color-cream: var(--cream);
+  --color-header-beige: var(--header-beige);
+  --color-stelle-green: var(--stelle-green);
+  --color-sogni-pink: var(--sogni-pink);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Font Face Declarations - Will load custom fonts */
+@font-face {
+  font-family: 'Abordage';
+  src: url('/fonts/Abordage-Regular.woff2') format('woff2'),
+       url('/fonts/Abordage-Regular.woff') format('woff'),
+       url('/fonts/Abordage-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
+@font-face {
+  font-family: 'Meridien LT Std';
+  src: url('/fonts/MeridienLTStd-Roman.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  background: var(--cream);
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* Typography Utilities */
+.heading-xl {
+  font-family: var(--font-display);
+  font-size: 6.65rem; /* 80pt → 107px */
+  letter-spacing: -2px;
+  line-height: 100%;
+  margin-bottom: 45px;
+}
+
+.heading-lg {
+  font-family: var(--font-body);
+  font-size: 3.3rem; /* 40pt → 53px */
+  letter-spacing: -1.25rem; /* -20pt */
+  line-height: 37pt;
+  margin-bottom: 20px;
+}
+
+.heading-md {
+  font-family: var(--font-body);
+  font-size: 2.3rem; /* 28pt → 37px */
+  letter-spacing: 0;
+  line-height: 32pt;
+  margin-bottom: 16px;
+}
+
+.body-text {
+  font-family: var(--font-body);
+  font-size: 1.7rem; /* 20pt → 27px */
+  letter-spacing: 0;
+  line-height: 28px; /* 21pt */
+}
+
+.body-text p {
+  margin-bottom: 40px;
+}
+
+.small-text {
+  font-family: var(--font-body);
+  font-size: 1.3rem; /* 16pt → 21px */
+  letter-spacing: 0;
+  line-height: 18pt;
+}
+
+/* Hover States */
+.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clickable:hover {
+  text-decoration: underline;
+}
+
+.group:hover .underline-animation {
+  width: 100% !important;
+}
+
+/* Utility Classes */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
