@@ -50,25 +50,11 @@ export default function OliveOilPage() {
     },
   ];
 
-  const productLinks = [
-    {
-      title: 'Shop',
-      href: '/shop',
-      snippet: 'Browse our selection of estate-grown olive oil and wine available for purchase.',
-    },
-    {
-      title: 'Wine',
-      href: '/wine',
-      snippet: 'Small-batch Montepulciano d\'Abruzzo, crafted with minimal intervention. Click here to learn more.',
-    },
-  ];
-
   return (
     <ContentPageTemplate
       title="Olive oil"
       content={content}
       images={images}
-      productLinks={productLinks}
     />
   );
 }

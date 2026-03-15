@@ -30,54 +30,17 @@ export default function Header() {
           transform: 'translateX(-50%)',
         }}
       >
-        <span style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: '1.5rem',
-          fontWeight: 'normal'
-        }}>
-          Sentieri
+       <span style={{
+  fontFamily: 'var(--font-body)',
+  fontSize: '2.2rem',
+  fontWeight: 'normal',
+  letterSpacing: '-0.07em'
+}}>
+          sentieri
         </span>
       </Link>
 
-      {/* Navigation */}
-      <nav style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
-        <Link
-          href="/shop"
-          className="clickable"
-          style={{
-            textDecoration: 'none',
-            color: 'var(--black)',
-            fontFamily: 'var(--font-body)',
-            fontSize: '1rem',
-            letterSpacing: '0.05em',
-            textTransform: 'uppercase'
-          }}
-        >
-          SHOP
-        </Link>
-
-        {/* Language Toggle */}
-        <div style={{
-          display: 'flex',
-          gap: '8px',
-          fontFamily: 'var(--font-body)',
-          fontSize: '1rem'
-        }}>
-          <span
-            className="clickable"
-            style={{ fontWeight: 'bold', color: 'var(--black)' }}
-          >
-            EN
-          </span>
-          <span style={{ color: 'var(--black)' }}>/</span>
-          <span
-            className="clickable"
-            style={{ color: 'var(--black)', opacity: 0.5 }}
-          >
-            IT
-          </span>
-        </div>
-      </nav>
+    
     </header>
   );
 }

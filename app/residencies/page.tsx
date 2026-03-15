@@ -50,25 +50,11 @@ export default function ResidenciesPage() {
     },
   ];
 
-  const productLinks = [
-    {
-      title: 'Research Archive',
-      href: '/research-archive',
-      snippet: 'Explore documentation and reflections from our agricultural and cultural work.',
-    },
-    {
-      title: 'About us',
-      href: '/about',
-      snippet: 'Learn more about our vision, values, and the people behind Sentieri.',
-    },
-  ];
-
   return (
     <ContentPageTemplate
-      title="Residencies"
+      title="Residency"
       content={content}
       images={images}
-      productLinks={productLinks}
       mirrored={true}
     />
   );

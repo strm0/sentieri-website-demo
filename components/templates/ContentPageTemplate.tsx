@@ -1,19 +1,13 @@
 'use client'
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-
-interface ProductLink {
-  title: string;
-  href: string;
-  snippet: string;
-}
+import React from 'react';
+import Image from 'next/image';
 
 interface ContentPageTemplateProps {
   title: string;
   content: React.ReactNode;
   images: { url: string; alt: string }[];
-  productLinks?: ProductLink[];
+  quote?: React.ReactNode;
   mirrored?: boolean;
 }
 
@@ -21,150 +15,40 @@ export default function ContentPageTemplate({
   title,
   content,
   images,
-  productLinks,
+  quote,
   mirrored = false,
 }: ContentPageTemplateProps) {
-  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null)
-
   const textPane = (
     <div
       className="text-pane no-scrollbar"
       style={{
-        width: '50%',
+        width: '38%',
         height: '100%',
         overflowY: 'scroll',
         overflowX: 'hidden',
         background: 'var(--cream)',
         paddingLeft: '18px',
-        paddingRight: '130px',
-        paddingTop: '300px',
+        paddingRight: '18px',
+        paddingTop: '40px',
         paddingBottom: '80px',
       }}
     >
       {/* Page Title */}
-      <h1 className="heading-xl">{title}</h1>
+      <h1 className="heading-xl" style={{ fontSize: '8.5rem', textAlign: mirrored ? 'left' : 'right', marginBottom: '160px', paddingRight: mirrored ? undefined : '20px', paddingLeft: mirrored ? '12px' : undefined }}>{title}</h1>
 
       {/* Content */}
       <div
         className="body-text"
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: '18px',
           letterSpacing: 0,
-          lineHeight: '26px',
+          paddingLeft: '12px',
+          paddingRight: '20px',
         }}
       >
         {content}
       </div>
 
-      {/* Product Links Section - Below fold */}
-      {productLinks && productLinks.length > 0 && (
-        <>
-          {/* Top horizontal divider */}
-          <div
-            style={{
-              width: 'calc(100% + 18px + 130px)',
-              height: '1px',
-              background: 'var(--black)',
-              marginTop: '60px',
-              marginBottom: '40px',
-              marginLeft: '-18px',
-            }}
-          />
-
-          {/* Product links grid with vertical divider */}
-          <div
-            style={{
-              position: 'relative',
-              width: 'calc(100% + 18px + 130px)',
-              marginLeft: '-18px',
-            }}
-          >
-            <div
-              className="grid grid-cols-2"
-              style={{
-                gap: '0',
-                alignItems: 'start',
-              }}
-            >
-              {productLinks.map((product, index) => (
-                <Link
-                  key={product.href}
-                  href={product.href}
-                  className="cursor-pointer block"
-                  style={{
-                    paddingLeft: index === 0 ? '18px' : '20px',
-                    paddingRight: '20px',
-                    paddingTop: '20px',
-                    paddingBottom: 0,
-                  }}
-                  onMouseEnter={() => setHoveredProduct(product.href)}
-                  onMouseLeave={() => setHoveredProduct(null)}
-                >
-                  <div
-                    style={{
-                      position: 'relative',
-                      display: 'inline-block',
-                    }}
-                  >
-                    <h2
-                      style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '3.3rem',
-                        lineHeight: '1.1',
-                        letterSpacing: '-0.05rem',
-                        color: 'var(--black)',
-                        margin: 0,
-                      }}
-                    >
-                      {product.title}
-                    </h2>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: '-2px',
-                        left: 0,
-                        width: hoveredProduct === product.href ? '100%' : 0,
-                        height: '2px',
-                        background: 'var(--black)',
-                        transition: 'width 0.3s ease',
-                        transform: 'translateZ(0)',
-                        willChange: 'width',
-                      }}
-                    />
-                  </div>
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '18px',
-                      letterSpacing: 0,
-                      lineHeight: '26px',
-                      color: 'var(--black)',
-                      marginTop: '8px',
-                      marginBottom: 0,
-                    }}
-                  >
-                    {product.snippet}
-                  </p>
-                </Link>
-              ))}
-            </div>
-
-            {/* Vertical divider line between columns */}
-            <div
-              style={{
-                position: 'absolute',
-                width: '1px',
-                height: 'calc(100% + 120px)',
-                background: 'var(--black)',
-                left: '50%',
-                top: '-40px',
-                marginLeft: '-0.5px',
-              }}
-            />
-          </div>
-        </>
-      )}
     </div>
   )
 
@@ -172,26 +56,59 @@ export default function ContentPageTemplate({
     <div
       className="image-pane no-scrollbar"
       style={{
-        width: '50%',
+        width: '62%',
         height: '100%',
         overflowY: 'scroll',
         background: 'var(--cream)',
         padding: 0,
+        position: 'relative',
       }}
     >
+      {/* Quote overlay */}
+      {quote && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '140px',
+            right: '50px',
+            left: '35%',
+            zIndex: 10,
+            color: '#FFFFFF',
+            fontFamily: 'var(--font-body)',
+            fontSize: '1.7rem',
+            lineHeight: '28px',
+            textAlign: 'right',
+            pointerEvents: 'none',
+          }}
+        >
+          {quote}
+        </div>
+      )}
+
       <div className="image-gallery">
         {images.map((image, index) => (
-          <img
+          <div
             key={index}
-            src={image.url}
-            alt={image.alt}
             style={{
+              position: 'relative',
               width: '100%',
-              height: 'auto',
-              display: 'block',
               marginBottom: index < images.length - 1 ? '35px' : '0',
             }}
-          />
+          >
+            <Image
+              src={image.url}
+              alt={image.alt}
+              width={1200}
+              height={800}
+              sizes="62vw"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+              }}
+              unoptimized
+            />
+          </div>
         ))}
       </div>
     </div>
@@ -225,8 +142,7 @@ export default function ContentPageTemplate({
           width: '1px',
           height: '100%',
           background: 'var(--black)',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          left: mirrored ? '62%' : '38%',
           pointerEvents: 'none',
         }}
       />

@@ -55,25 +55,11 @@ export default function AboutPage() {
     },
   ];
 
-  const productLinks = [
-    {
-      title: 'Residencies',
-      href: '/residencies',
-      snippet: 'Artist and researcher residencies that explore rural imagination and ecological care.',
-    },
-    {
-      title: 'Research Archive',
-      href: '/research-archive',
-      snippet: 'Explore documentation and reflections from our agricultural and cultural work.',
-    },
-  ];
-
   return (
     <ContentPageTemplate
       title="About us"
       content={content}
       images={images}
-      productLinks={productLinks}
       mirrored={true}
     />
   );

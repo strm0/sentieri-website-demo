@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import AnimatedUnderline from '@/components/ui/AnimatedUnderline';
 
 interface EntityCard {
   title: string;
@@ -80,12 +81,7 @@ export default function LandingPageTemplate({
           }}
         >
           <div style={{ marginBottom: '45px' }}>
-            <div
-              style={{
-                position: 'relative',
-                display: 'inline-block',
-              }}
-            >
+            <AnimatedUnderline active={hoveredCard === 'agricola'}>
               <h2
                 style={{
                   fontFamily: 'var(--font-body)',
@@ -98,20 +94,7 @@ export default function LandingPageTemplate({
               >
                 {agricolaCard.title}
               </h2>
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '-2px',
-                  left: 0,
-                  width: hoveredCard === 'agricola' ? '100%' : 0,
-                  height: '2px',
-                  background: 'var(--black)',
-                  transition: 'width 0.3s ease',
-                  transform: 'translateZ(0)',
-                  willChange: 'width',
-                }}
-              />
-            </div>
+            </AnimatedUnderline>
           </div>
           <p
             style={{
@@ -141,12 +124,7 @@ export default function LandingPageTemplate({
           }}
         >
           <div style={{ marginBottom: '45px' }}>
-            <div
-              style={{
-                position: 'relative',
-                display: 'inline-block',
-              }}
-            >
+            <AnimatedUnderline active={hoveredCard === 'culturale'}>
               <h2
                 style={{
                   fontFamily: 'var(--font-body)',
@@ -159,20 +137,7 @@ export default function LandingPageTemplate({
               >
                 {culturaleCard.title}
               </h2>
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '-2px',
-                  left: 0,
-                  width: hoveredCard === 'culturale' ? '100%' : 0,
-                  height: '2px',
-                  background: 'var(--black)',
-                  transition: 'width 0.3s ease',
-                  transform: 'translateZ(0)',
-                  willChange: 'width',
-                }}
-              />
-            </div>
+            </AnimatedUnderline>
           </div>
           <p
             style={{

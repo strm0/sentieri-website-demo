@@ -1,11 +1,11 @@
 import ContentPageTemplate from '@/components/templates/ContentPageTemplate';
 
 export default function WinePage() {
-  // Content from the PDF
+  const quote = <>We believe that wine is made in the field<br />long before it even reaches the cellar.</>;
+
   const content = (
     <>
       <p>
-        We believe that wine is made in the field long before it even reaches the cellar.
         We cultivate Montepulciano d'Abruzzo, a grape that feels inseparable from the hills
         that surround Loreto Aprutino. Its roots reach into heavy clay, drawing out strength
         and depth that reflect this environment.
@@ -46,25 +46,12 @@ export default function WinePage() {
     
   ];
 
-  const productLinks = [
-    {
-      title: 'Shop',
-      href: '/shop',
-      snippet: 'Browse our selection of estate-grown olive oil and wine available for purchase.',
-    },
-    {
-      title: 'Olive oil',
-      href: '/olive-oil',
-      snippet: 'Single-varietal Dritta extra virgin olive oil from century-old trees. Click here to learn more.',
-    },
-  ];
-
   return (
     <ContentPageTemplate
       title="Wine"
       content={content}
       images={images}
-      productLinks={productLinks}
+      quote={quote}
     />
   );
 }

@@ -44,7 +44,8 @@ export default function ArticleGrid({ articles, scrollable = false }: ArticleGri
           {Array.from({ length: 4 - articles.length }).map((_, index) => (
             <div
               key={`placeholder-${index}`}
-              className="aspect-square bg-gradient-to-br from-cream to-header-beige opacity-30"
+              className="aspect-square"
+              style={{ background: 'var(--cream)' }}
             />
           ))}
         </>

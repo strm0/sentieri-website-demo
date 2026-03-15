@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
+import AnimatedUnderline from '@/components/ui/AnimatedUnderline'
 
 interface ArticleCardProps {
   title: string
@@ -34,7 +35,6 @@ export default function ArticleCard({
         className="relative overflow-hidden bg-cream"
         style={{
           aspectRatio: '1 / 1',
-          borderRadius: '9px',
           width: '100%',
         }}
       >
@@ -50,7 +50,7 @@ export default function ArticleCard({
           />
         ) : (
           // Placeholder background when no image
-          <div className="absolute inset-0 bg-gradient-to-br from-cream to-header-beige" />
+          <div className="absolute inset-0" style={{ background: 'var(--cream)' }} />
         )}
       </div>
 
@@ -62,12 +62,7 @@ export default function ArticleCard({
           marginTop: '5%',
         }}
       >
-        <div
-          style={{
-            position: 'relative',
-            display: 'inline-block',
-          }}
-        >
+        <AnimatedUnderline active={isHovered}>
           <h3
             style={{
               fontFamily: 'var(--font-display)',
@@ -79,20 +74,7 @@ export default function ArticleCard({
           >
             {title}
           </h3>
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '-2px',
-              left: 0,
-              width: isHovered ? '100%' : 0,
-              height: '2px',
-              background: 'var(--black)',
-              transition: 'width 0.3s ease',
-              transform: 'translateZ(0)',
-              willChange: 'width',
-            }}
-          />
-        </div>
+        </AnimatedUnderline>
       </div>
     </Link>
   )

@@ -6,10 +6,10 @@
 
 :root {
   /* Colors */
-  --cream: #FFF8E7;
-  --header-beige: #ECE1B9;
-  --stelle-green: #CFDCCB;
-  --sogni-pink: #FEECE9;
+  --cream: #FFFFFF;
+  --header-beige: #FFFFFF;
+  --stelle-green: #FFFFFF;
+  --sogni-pink: #FFFFFF;
   --black: #000000;
 
   /* Spacing */
@@ -25,11 +25,15 @@
   --space-4xl: 130px;
 
   /* Typography - Font Families */
-  --font-display: 'Abordage', Georgia, serif;
-  --font-body: 'Meridien LT Std', 'Times New Roman', serif;
+  --font-display: 'Noi Grotesk', sans-serif;
+  --font-body: 'Noi Grotesk', sans-serif;
 }
 
 @theme inline {
+  /* Override Tailwind default font with Noi Grotesk */
+  --font-sans: 'Noi Grotesk', sans-serif;
+  --default-font-family: 'Noi Grotesk', sans-serif;
+
   /* Extend Tailwind with custom colors */
   --color-cream: var(--cream);
   --color-header-beige: var(--header-beige);
@@ -39,18 +43,8 @@
 
 /* Font Face Declarations - Will load custom fonts */
 @font-face {
-  font-family: 'Abordage';
-  src: url('/fonts/Abordage-Regular.woff2') format('woff2'),
-       url('/fonts/Abordage-Regular.woff') format('woff'),
-       url('/fonts/Abordage-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Meridien LT Std';
-  src: url('/fonts/MeridienLTStd-Roman.woff') format('woff');
+  font-family: 'Noi Grotesk';
+  src: url('/fonts/NoiGroteskTrial-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
