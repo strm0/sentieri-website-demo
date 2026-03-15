@@ -1,21 +1,22 @@
 import GridPageTemplate from '@/components/templates/GridPageTemplate'
 
-// Combined articles from both agricultural and cultural entities
+
 const allArticles = [
-  // Associazione Culturale articles (sogni)
   {
     title: 'Residencies: tools for rural regeneration',
     slug: 'residencies-rural-regeneration',
     publishDate: '2024-11-20',
     featuredImage: '/images/culturale/culturale-1.jpg',
     entity: 'sogni' as const,
+    author: 'Giulia Morlando',
   },
   {
-    title: 'Last days of the harvest',
-    slug: 'last-days-of-the-harvest',
-    publishDate: '2024-11-15',
+    title: 'A walk from Elsewhere',
+    slug: 'a-walk-from-elsewhere',
+    publishDate: '2025-01-15',
     featuredImage: '/images/azienda/article-1.jpg',
     entity: 'stelle' as const,
+    author: 'Giulia Morlando',
   },
   {
     title: 'Reforestation workshop',
@@ -23,13 +24,15 @@ const allArticles = [
     publishDate: '2024-11-05',
     featuredImage: '/images/culturale/culturale-2.jpg',
     entity: 'sogni' as const,
+    author: 'Jack Lain Aiken',
   },
   {
-    title: 'Olive harvest stories',
-    slug: 'olive-harvest-stories',
-    publishDate: '2024-10-29',
+    title: 'Negotiating the Harvest',
+    slug: 'negotiating-the-harvest',
+    publishDate: '2025-01-10',
     featuredImage: '/images/azienda/article-2.jpg',
     entity: 'stelle' as const,
+    author: 'Jack Lain Aiken',
   },
   {
     title: 'Cultural heritage in a changing landscape',
@@ -37,6 +40,7 @@ const allArticles = [
     publishDate: '2024-10-18',
     featuredImage: '/images/culturale/culturale-3.jpg',
     entity: 'sogni' as const,
+    author: 'Giulia Morlando',
   },
   {
     title: 'Our first wine harvest',
@@ -44,6 +48,7 @@ const allArticles = [
     publishDate: '2024-10-12',
     featuredImage: '/images/azienda/article-3.jpg',
     entity: 'stelle' as const,
+    author: 'Oscar Ström',
   },
   {
     title: 'Art, ecology, and collective imagination',
@@ -51,6 +56,7 @@ const allArticles = [
     publishDate: '2024-09-30',
     featuredImage: '/images/culturale/culturale-4.jpg',
     entity: 'sogni' as const,
+    author: 'Oscar Ström',
   },
   {
     title: 'Visits from friends and family',
@@ -58,31 +64,18 @@ const allArticles = [
     publishDate: '2024-09-28',
     featuredImage: '/images/azienda/article-4.jpg',
     entity: 'stelle' as const,
-  },
-]
-
-const productLinks = [
-  {
-    title: 'Residencies',
-    href: '/residencies',
-    snippet: 'Artist and researcher residencies that explore rural imagination and ecological care.',
-  },
-  {
-    title: 'About us',
-    href: '/about',
-    snippet: 'Learn more about our vision, values, and the people behind Sentieri.',
+    author: 'Oscar Ström',
   },
 ]
 
 export default function ResearchArchivePage() {
   return (
     <GridPageTemplate
-      title="Research Archive"
-      tagline="A collection of stories, research, and reflections from both our agricultural and cultural work."
+      title="Archive"
       description={
         <>
           <p>
-            The Research Archive brings together writings, documentation, and reflections from
+            The Archive brings together writings, documentation, and reflections from
             across our agricultural and cultural activities. Here you'll find stories from the
             field, workshop reports, artistic research, and collaborative experiments that span
             both Sentieri di Stelle and Sentieri di Sogni.
@@ -96,8 +89,6 @@ export default function ResearchArchivePage() {
         </>
       }
       featuredArticles={allArticles}
-      productLinks={productLinks}
-      scrollable={true}
       mirrored={true}
     />
   )

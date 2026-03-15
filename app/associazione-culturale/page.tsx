@@ -8,6 +8,7 @@ const sampleArticles = [
     publishDate: '2024-11-20',
     featuredImage: '/images/culturale/culturale-1.jpg',
     entity: 'sogni' as const,
+    author: 'Giulia Morlando',
   },
   {
     title: 'Reforestation workshop',
@@ -15,6 +16,7 @@ const sampleArticles = [
     publishDate: '2024-11-05',
     featuredImage: '/images/culturale/culturale-2.jpg',
     entity: 'sogni' as const,
+    author: 'Jack Lain Aiken',
   },
   {
     title: 'Cultural heritage in a changing landscape',
@@ -22,6 +24,7 @@ const sampleArticles = [
     publishDate: '2024-10-18',
     featuredImage: '/images/culturale/culturale-3.jpg',
     entity: 'sogni' as const,
+    author: 'Giulia Morlando',
   },
   {
     title: 'Art, ecology, and collective imagination',
@@ -29,19 +32,7 @@ const sampleArticles = [
     publishDate: '2024-09-30',
     featuredImage: '/images/culturale/culturale-4.jpg',
     entity: 'sogni' as const,
-  },
-]
-
-const productLinks = [
-  {
-    title: 'Residencies',
-    href: '/residencies',
-    snippet: 'Artist and researcher residencies that explore rural imagination and ecological care.',
-  },
-  {
-    title: 'Research Archive',
-    href: '/research-archive',
-    snippet: 'Explore documentation and reflections from our agricultural and cultural work.',
+    author: 'Oscar Ström',
   },
 ]
 
@@ -49,7 +40,6 @@ export default function AssociazioneCulturalePage() {
   return (
     <GridPageTemplate
       title="Associazione Culturale"
-      tagline="Artistic and ecological research that redefines our relationship with rural landscapes."
       description={
         <>
           <p>
@@ -74,7 +64,6 @@ export default function AssociazioneCulturalePage() {
         </>
       }
       featuredArticles={sampleArticles}
-      productLinks={productLinks}
       mirrored={true}
     />
   )

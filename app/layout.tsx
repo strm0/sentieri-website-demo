@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/global/Header";
-import SidebarLeft from "@/components/global/SidebarLeft";
-import SidebarRight from "@/components/global/SidebarRight";
+import SidebarsContainer from "@/components/global/SidebarsContainer";
 
 export const metadata: Metadata = {
   title: "Sentieri - Farm & Cultural Hub",
@@ -20,11 +19,8 @@ export default function RootLayout({
         {/* Fixed Header */}
         <Header />
 
-        {/* Left Sidebar (Di Stelle) */}
-        <SidebarLeft />
-
-        {/* Right Sidebar (Di Sogni) */}
-        <SidebarRight />
+        {/* Sidebars (Di Stelle + Di Sogni) */}
+        <SidebarsContainer />
 
         {/* Main Content Area */}
         <main

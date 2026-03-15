@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import AnimatedUnderline from '@/components/ui/AnimatedUnderline'
 
 interface MenuOverlayProps {
   isOpen: boolean
@@ -14,17 +15,17 @@ interface MenuItem {
   href: string
 }
 
-// Left menu (Azienda Agricola) - excluding the main heading
+// Left menu (Azienda Agricola)
 const leftMenuItems: MenuItem[] = [
   { label: 'Wine', href: '/wine' },
-  { label: 'Olive oil', href: '/olive-oil' },
+  { label: 'Olive Oil', href: '/olive-oil' },
   { label: 'Shop', href: '/shop' },
 ]
 
-// Right menu (Associazione Culturale) - excluding the main heading
+// Right menu (Associazione Culturale)
 const rightMenuItems: MenuItem[] = [
   { label: 'Residencies', href: '/residencies' },
-  { label: 'Research Archive', href: '/research-archive' },
+  { label: 'Archive', href: '/research-archive' },
   { label: 'About us', href: '/about' },
 ]
 
@@ -48,191 +49,22 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
     }
   }, [isOpen, onClose])
 
-  // Left menu layout (Azienda Agricola)
-  if (side === 'left') {
-    return (
-      <>
-        {/* Full-screen backdrop */}
-        <div
-          className="fixed inset-0 z-[40]"
-          style={{
-            top: 'var(--header-height)',
-            height: 'calc(100vh - var(--header-height))',
-            pointerEvents: isOpen ? 'auto' : 'none',
-          }}
-          onClick={onClose}
-          aria-hidden={!isOpen}
-        />
+  const isLeft = side === 'left'
+  const menuItems = isLeft ? leftMenuItems : rightMenuItems
+  const headingText = isLeft ? ['Azienda', 'Agricola'] : ['Associazione', 'Culturale']
+  const headingHref = isLeft ? '/azienda-agricola' : '/associazione-culturale'
+  const headingKey = isLeft ? 'heading-left' : 'heading-right'
 
-        {/* Menu overlay */}
-        <div
-          className="fixed h-screen z-[40] transition-all duration-300 ease-in-out"
-          style={{
-            width: isOpen ? '50vw' : '0',
-            backgroundColor: 'var(--cream)',
-            top: 'var(--header-height)',
-            height: 'calc(100vh - var(--header-height))',
-            left: '0',
-            pointerEvents: isOpen ? 'auto' : 'none',
-            overflow: 'hidden',
-          }}
-          aria-hidden={!isOpen}
-        >
-          <div
-            style={{
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              paddingLeft: '18px',
-              paddingRight: 'calc(var(--sidebar-width) + 130px)',
-              paddingTop: '110px',
-              paddingBottom: '80px',
-            }}
-          >
-            {/* Main Heading */}
-            <Link
-              href="/azienda-agricola"
-              onMouseEnter={() => setHoveredItem('heading-left')}
-              onMouseLeave={() => setHoveredItem(null)}
-              onClick={(e) => {
-                e.stopPropagation()
-                onClose()
-              }}
-              style={{
-                textDecoration: 'none',
-              }}
-            >
-              <div style={{ marginBottom: '45px', minHeight: '13.3rem' }}>
-                <h2
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '6.65rem',
-                    letterSpacing: '-2px',
-                    lineHeight: '100%',
-                    color: 'var(--black)',
-                    margin: 0,
-                  }}
-                >
-                  Azienda{' '}
-                  <span
-                    style={{
-                      position: 'relative',
-                      display: 'inline-block',
-                    }}
-                  >
-                    Agricola
-                    <span
-                      style={{
-                        position: 'absolute',
-                        bottom: '-2px',
-                        left: 0,
-                        width: hoveredItem === 'heading-left' ? '100%' : 0,
-                        height: '2px',
-                        background: 'var(--black)',
-                        transition: 'width 0.3s ease',
-                        transform: 'translateZ(0)',
-                        willChange: 'width',
-                      }}
-                    />
-                  </span>
-                </h2>
-              </div>
-            </Link>
-
-            {/* Menu Items with Divider Lines */}
-            <nav>
-              {leftMenuItems.map((item, index) => (
-                <div key={item.href}>
-                  {/* Top border line - full width */}
-                  <div
-                    style={{
-                      width: '100vw',
-                      height: '1px',
-                      background: 'var(--black)',
-                      marginBottom: '20px',
-                      marginLeft: '-18px',
-                    }}
-                  />
-
-                  {/* Menu Item */}
-                  <Link
-                    href={item.href}
-                    onMouseEnter={() => setHoveredItem(item.href)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    style={{
-                      display: 'block',
-                      textDecoration: 'none',
-                      marginBottom: '20px',
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      onClose()
-                    }}
-                  >
-                    <div
-                      style={{
-                        position: 'relative',
-                        display: 'inline-block',
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-display)',
-                          fontSize: '3.3rem',
-                          letterSpacing: '-0.1rem',
-                          lineHeight: '37pt',
-                          color: 'var(--black)',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {item.label}
-                      </span>
-                      <div
-                        style={{
-                          position: 'absolute',
-                          bottom: '-2px',
-                          left: 0,
-                          width: hoveredItem === item.href ? '100%' : 0,
-                          height: '2px',
-                          background: 'var(--black)',
-                          transition: 'width 0.3s ease',
-                          transform: 'translateZ(0)',
-                          willChange: 'width',
-                        }}
-                      />
-                    </div>
-                  </Link>
-
-                  {/* Bottom border line for last item - full width */}
-                  {index === leftMenuItems.length - 1 && (
-                    <div
-                      style={{
-                        width: '100vw',
-                        height: '1px',
-                        background: 'var(--black)',
-                        marginLeft: '-18px',
-                      }}
-                    />
-                  )}
-                </div>
-              ))}
-            </nav>
-          </div>
-        </div>
-      </>
-    )
-  }
-
-  // Right menu layout (Associazione Culturale) - same structure as left
   return (
     <>
-      {/* Full-screen backdrop */}
+      {/* Transparent backdrop — only covers the area outside the overlay so clicks close the menu */}
       <div
         className="fixed inset-0 z-[40]"
         style={{
           top: 'var(--header-height)',
           height: 'calc(100vh - var(--header-height))',
           pointerEvents: isOpen ? 'auto' : 'none',
+          background: 'transparent',
         }}
         onClick={onClose}
         aria-hidden={!isOpen}
@@ -240,13 +72,14 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
 
       {/* Menu overlay */}
       <div
-        className="fixed h-screen z-[40] transition-all duration-300 ease-in-out"
+        className="fixed z-[40] transition-all duration-300 ease-in-out"
         style={{
-          width: isOpen ? '50vw' : '0',
-          backgroundColor: 'var(--cream)',
+          width: isOpen ? '62vw' : '0',
+          backgroundColor: '#FFFFFF',
           top: 'var(--header-height)',
           height: 'calc(100vh - var(--header-height))',
-          right: '0',
+          left: isLeft ? '0' : undefined,
+          right: isLeft ? undefined : '0',
           pointerEvents: isOpen ? 'auto' : 'none',
           overflow: 'hidden',
         }}
@@ -255,18 +88,17 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
         <div
           style={{
             height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            paddingLeft: 'calc(var(--sidebar-width) + 18px)',
-            paddingRight: '130px',
-            paddingTop: '110px',
-            paddingBottom: '80px',
+            position: 'relative',
+            paddingLeft: isLeft ? '18px' : 'calc(var(--sidebar-width) + 18px)',
+            paddingRight: isLeft ? 'calc(var(--sidebar-width) + 18px)' : '18px',
+            paddingTop: '40px',
+            paddingBottom: '40px',
           }}
         >
-          {/* Main Heading */}
+          {/* Main Heading — top area */}
           <Link
-            href="/associazione-culturale"
-            onMouseEnter={() => setHoveredItem('heading-right')}
+            href={headingHref}
+            onMouseEnter={() => setHoveredItem(headingKey)}
             onMouseLeave={() => setHoveredItem(null)}
             onClick={(e) => {
               e.stopPropagation()
@@ -274,125 +106,138 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
             }}
             style={{
               textDecoration: 'none',
+              display: 'block',
+              textAlign: 'left',
             }}
           >
-            <div style={{ marginBottom: '45px', minHeight: '13.3rem' }}>
-              <h2
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '6.65rem',
-                  letterSpacing: '-2px',
-                  lineHeight: '100%',
-                  color: 'var(--black)',
-                  margin: 0,
-                }}
-              >
-                Associazione{' '}
-                <span
-                  style={{
-                    position: 'relative',
-                    display: 'inline-block',
-                  }}
-                >
-                  Culturale
-                  <span
-                    style={{
-                      position: 'absolute',
-                      bottom: '-2px',
-                      left: 0,
-                      width: hoveredItem === 'heading-right' ? '100%' : 0,
-                      height: '2px',
-                      background: 'var(--black)',
-                      transition: 'width 0.3s ease',
-                      transform: 'translateZ(0)',
-                      willChange: 'width',
-                    }}
-                  />
+            <h2
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '8.5rem',
+                letterSpacing: '-2px',
+                lineHeight: '100%',
+                color: '#000000',
+                margin: 0,
+              }}
+            >
+              <AnimatedUnderline active={hoveredItem === headingKey}>
+                <span>
+                  {headingText[0]}
+                  <br />
+                  {headingText[1]}
                 </span>
-              </h2>
-            </div>
+              </AnimatedUnderline>
+            </h2>
           </Link>
 
-          {/* Menu Items with Divider Lines */}
+          {/* Nav links — positioned absolutely to spread across the overlay */}
           <nav>
-            {rightMenuItems.map((item, index) => (
-              <div key={item.href}>
-                {/* Top border line - full width */}
-                <div
-                  style={{
-                    width: '100vw',
-                    height: '1px',
-                    background: 'var(--black)',
-                    marginBottom: '20px',
-                    marginLeft: 'calc(-1 * (var(--sidebar-width) + 18px))',
-                  }}
-                />
-
-                {/* Menu Item */}
-                <Link
-                  href={item.href}
-                  onMouseEnter={() => setHoveredItem(item.href)}
-                  onMouseLeave={() => setHoveredItem(null)}
-                  style={{
-                    display: 'block',
-                    textDecoration: 'none',
-                    marginBottom: '20px',
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onClose()
-                  }}
-                >
-                  <div
-                    style={{
-                      position: 'relative',
-                      display: 'inline-block',
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '3.3rem',
-                        letterSpacing: '-0.1rem',
-                        lineHeight: '37pt',
-                        color: 'var(--black)',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      {item.label}
-                    </span>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: '-2px',
-                        left: 0,
-                        width: hoveredItem === item.href ? '100%' : 0,
-                        height: '2px',
-                        background: 'var(--black)',
-                        transition: 'width 0.3s ease',
-                        transform: 'translateZ(0)',
-                        willChange: 'width',
-                      }}
-                    />
-                  </div>
-                </Link>
-
-                {/* Bottom border line for last item - full width */}
-                {index === rightMenuItems.length - 1 && (
-                  <div
-                    style={{
-                      width: '100vw',
-                      height: '1px',
-                      background: 'var(--black)',
-                      marginLeft: 'calc(-1 * (var(--sidebar-width) + 18px))',
-                    }}
+            {isLeft ? (
+              <>
+                {/* Wine — mid-left */}
+                <div style={{ position: 'absolute', left: '18px', top: '50%', transform: 'translateY(-50%)' }}>
+                  <MenuLink
+                    item={leftMenuItems[0]}
+                    hoveredItem={hoveredItem}
+                    setHoveredItem={setHoveredItem}
+                    onClose={onClose}
                   />
-                )}
-              </div>
-            ))}
+                </div>
+                {/* Olive Oil — bottom-left */}
+                <div style={{ position: 'absolute', left: '18px', bottom: '40px' }}>
+                  <MenuLink
+                    item={leftMenuItems[1]}
+                    hoveredItem={hoveredItem}
+                    setHoveredItem={setHoveredItem}
+                    onClose={onClose}
+                  />
+                </div>
+                {/* Shop — bottom-right */}
+                <div style={{ position: 'absolute', right: 'calc(var(--sidebar-width) + 18px)', bottom: '40px' }}>
+                  <MenuLink
+                    item={leftMenuItems[2]}
+                    hoveredItem={hoveredItem}
+                    setHoveredItem={setHoveredItem}
+                    onClose={onClose}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Residencies — mid-right */}
+                <div style={{ position: 'absolute', right: '18px', top: '50%', transform: 'translateY(-50%)' }}>
+                  <MenuLink
+                    item={rightMenuItems[0]}
+                    hoveredItem={hoveredItem}
+                    setHoveredItem={setHoveredItem}
+                    onClose={onClose}
+                  />
+                </div>
+                {/* Archive — bottom-left */}
+                <div style={{ position: 'absolute', left: 'calc(var(--sidebar-width) + 18px)', bottom: '40px' }}>
+                  <MenuLink
+                    item={rightMenuItems[1]}
+                    hoveredItem={hoveredItem}
+                    setHoveredItem={setHoveredItem}
+                    onClose={onClose}
+                  />
+                </div>
+                {/* About us — bottom-right */}
+                <div style={{ position: 'absolute', right: '18px', bottom: '40px' }}>
+                  <MenuLink
+                    item={rightMenuItems[2]}
+                    hoveredItem={hoveredItem}
+                    setHoveredItem={setHoveredItem}
+                    onClose={onClose}
+                  />
+                </div>
+              </>
+            )}
           </nav>
         </div>
       </div>
     </>
+  )
+}
+
+function MenuLink({
+  item,
+  hoveredItem,
+  setHoveredItem,
+  onClose,
+}: {
+  item: MenuItem
+  hoveredItem: string | null
+  setHoveredItem: (item: string | null) => void
+  onClose: () => void
+}) {
+  return (
+    <Link
+      href={item.href}
+      onMouseEnter={() => setHoveredItem(item.href)}
+      onMouseLeave={() => setHoveredItem(null)}
+      style={{
+        display: 'block',
+        textDecoration: 'none',
+      }}
+      onClick={(e) => {
+        e.stopPropagation()
+        onClose()
+      }}
+    >
+      <AnimatedUnderline active={hoveredItem === item.href}>
+        <span
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '1.7rem',
+            lineHeight: '28px',
+            color: '#000000',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {item.label}
+        </span>
+      </AnimatedUnderline>
+    </Link>
   )
 }
