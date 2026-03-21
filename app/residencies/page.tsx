@@ -52,7 +52,7 @@ export default function ResidenciesPage() {
 
   return (
     <ContentPageTemplate
-      title="Residency"
+      title="Residencies"
       content={content}
       images={images}
       mirrored={true}

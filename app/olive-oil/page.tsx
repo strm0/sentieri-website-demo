@@ -5,27 +5,26 @@ export default function OliveOilPage() {
   const content = (
     <>
       <p>
-        Typical of the Vestina hills of Loreto Aprutino, Dritta is a traditional Abruzzese
-        cultivar with deep local roots. Our trees – many over 100 years old – are tended
-        with low-input, artisan care, respecting the ancient tradition of this land.
+        Typical of the Vestina hills around Loreto Aprutino, Dritta is a traditional Abruzzese
+        cultivar that has grown within this landscape for generations. Many of our trees are over
+        one hundred years old, defined by soil, exposure, and long familiarity with place rather
+        than by yield-driven design.
       </p>
       <p>
-        We harvest by hand, mill the olives within hours of picking, and bottle small
-        batches to protect the fresh aromas of Dritta. Our oil is characterised by the taste
-        of our hills: crisp green bitterness, a round character and a lingering peppery finish
-        on the back palate — a balance of vitality and calm.
+        We harvest by hand, moving attentively through the groves in small groups. Decisions are
+        made tree by tree, guided by ripeness, weather, and ground conditions. The harvest is a
+        collective moment, honoring the collective nature of this practice.
       </p>
-       <p>
-        We harvest by hand, mill the olives within hours of picking, and bottle small
-        batches to protect the fresh aromas of Dritta. Our oil is characterised by the taste
-        of our hills: crisp green bitterness, a round character and a lingering peppery finish
-        on the back palate — a balance of vitality and calm.
+      <p>
+        Within hours of picking, olives are pressed at a net-zero emissions mill in Pianella,
+        chosen to extend our approach beyond the field. Milling happens cold, without
+        interventions, letting oil express the season, not a standard product.
       </p>
-       <p>
-        We harvest by hand, mill the olives within hours of picking, and bottle small
-        batches to protect the fresh aromas of Dritta. Our oil is characterised by the taste
-        of our hills: crisp green bitterness, a round character and a lingering peppery finish
-        on the back palate — a balance of vitality and calm.
+      <p>
+        We bottle in small batches to stay close to the oil as it develops. Dritta produces an
+        oil with a clear profile: fresh green pepperiness, a rounded body, and a persistent
+        bright finish. It reflects the balance we aim for in the field, a balance between
+        something <em>forte e gentile</em>.
       </p>
     </>
   );

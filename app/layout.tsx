@@ -29,7 +29,7 @@ export default function RootLayout({
             marginRight: 'var(--sidebar-width)',
             marginTop: 'var(--header-height)',
             height: 'calc(100vh - var(--header-height))',
-            overflow: 'hidden',
+            overflow: 'clip',
             background: 'var(--cream)',
           }}
         >

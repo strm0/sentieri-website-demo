@@ -4,16 +4,17 @@ import ArticleList from '../article/ArticleList'
 
 interface Article {
   _id?: string
-  title: string
+  title: React.ReactNode
   slug: string
   publishDate: string
   featuredImage?: string
   entity?: 'stelle' | 'sogni'
   author?: string
+  imagePosition?: string
 }
 
 interface GridPageTemplateProps {
-  title: string
+  title: React.ReactNode
   description: React.ReactNode | string
   featuredArticles: Article[]
   mirrored?: boolean
@@ -37,14 +38,14 @@ export default function GridPageTemplate({
         paddingLeft: '18px',
         paddingRight: '18px',
         paddingTop: '40px',
-        paddingBottom: '80px',
+        paddingBottom: '20px',
       }}
     >
       {/* Title */}
       <h1
         className="heading-xl"
         style={{
-          fontSize: '8.5rem',
+          fontSize: 'clamp(3rem, 5.5vw, 7.5rem)',
           textAlign: mirrored ? 'left' : 'right',
           marginBottom: '160px',
           paddingRight: mirrored ? undefined : '20px',
@@ -97,17 +98,6 @@ export default function GridPageTemplate({
         </>
       )}
 
-      {/* Center Divider */}
-      <div
-        style={{
-          position: 'absolute',
-          width: '1px',
-          height: '100%',
-          background: 'var(--black)',
-          left: mirrored ? '62%' : '38%',
-          top: 0,
-        }}
-      />
     </div>
   )
 }

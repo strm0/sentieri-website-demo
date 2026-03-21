@@ -13,6 +13,7 @@ interface Article {
   featuredImage?: string
   entity?: 'stelle' | 'sogni'
   author?: string
+  imagePosition?: string
 }
 
 interface ArticleListProps {
@@ -109,6 +110,7 @@ function ArticleRow({ article }: { article: Article }) {
                 alt={article.title}
                 fill
                 className="object-cover"
+                style={{ objectPosition: article.imagePosition || 'center center' }}
                 sizes="(max-width: 768px) 100vw, 31vw"
                 unoptimized
               />

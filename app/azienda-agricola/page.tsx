@@ -3,36 +3,31 @@ import GridPageTemplate from '@/components/templates/GridPageTemplate'
 // Sample featured articles (will be replaced with Sanity data later)
 const sampleArticles = [
   {
-    title: 'A walk from Elsewhere',
-    slug: 'a-walk-from-elsewhere',
-    publishDate: '2025-01-15',
-    featuredImage: '/images/azienda/article-1.jpg',
+    title: 'Our Way Here',
+    slug: 'our-way-here',
+    publishDate: '2025-01-01',
+    featuredImage: '/images/articles/our-way-here/OurWay-5.jpg',
     entity: 'stelle' as const,
     author: 'Giulia Morlando',
+    imagePosition: 'center 30%',
   },
   {
     title: 'Negotiating the Harvest',
     slug: 'negotiating-the-harvest',
-    publishDate: '2025-01-10',
-    featuredImage: '/images/azienda/article-2.jpg',
+    publishDate: '2025-01-01',
+    featuredImage: '/images/articles/negotiating-the-harvest/WineHarvest-2.jpg',
     entity: 'stelle' as const,
-    author: 'Jack Lain Aiken',
+    author: 'Jack Laing Aiken',
+    imagePosition: 'center 80%',
   },
   {
-    title: 'Negotiating the Harvest',
-    slug: 'negotiating-the-harvest-2',
-    publishDate: '2024-10-12',
-    featuredImage: '/images/azienda/article-3.jpg',
+    title: 'The Pace of Olives',
+    slug: 'the-pace-of-olives',
+    publishDate: '2025-01-01',
+    featuredImage: '/images/articles/the-pace-of-olives/Olives-4.jpg',
     entity: 'stelle' as const,
-    author: 'Jack Lain Aiken',
-  },
-  {
-    title: 'Our first wine harvest',
-    slug: 'our-first-wine-harvest',
-    publishDate: '2024-09-28',
-    featuredImage: '/images/azienda/article-4.jpg',
-    entity: 'stelle' as const,
-    author: 'Oscar Ström',
+    author: 'Jack Laing Aiken',
+    imagePosition: 'center 40%',
   },
 ]
 
@@ -42,21 +37,55 @@ export default function AziendaAgricolaPage() {
       title="Azienda Agricola"
       description={
         <>
+          <p><em>Agriculture is a form of imagination.</em></p>
+
           <p>
-            Our small-batch wine and single-varietal extra virgin olive oil are expressions of
-            place — guided by hand management, minimal intervention, and a deep respect for the
-            cycles of the land. Every decision, from canopy care to soil health, is made with
-            long-term balance in mind.
+            We see our azienda not as a factory for products, but as a site where relational
+            thinking meets biological reality. Here, abstraction collapses into the soil, the
+            weather, and the body. Our role is to witness and inhabit this complexity, moving away
+            from the fantasy of control toward an ethics of participation. This is what we believe in:
           </p>
+
+          <h2 className="subheader-l1">The Vitality of the Whole (Agroforestry)</h2>
           <p>
-            We believe great food and wine begin in the field. Our work is guided by hand
-            management and low-intervention practices: careful canopy and soil management, minimal
-            machinery use, and decisions that prioritise long-term health over short-term yield.
+            Health cannot be isolated. Monocultures feel wrong to us both morally and ecologically.
+            This is why we experiment with agroforestry, where vines and olive trees grow with
+            diverse plants, trees, and wildlife. By mimicking a forest, each element supports
+            another's vitality, forming a self-sustaining organism.
           </p>
+
+          <h2 className="subheader-l1">The Ethics of Attention</h2>
           <p>
-            Our farm is also a place of exchange. Agriculture here is not only production — it is
-            a way to gather knowledge, culture and craft. As the project grows, we will direct a
-            portion of farm proceeds to fund local cultural projects and ecological restoration.
+            We believe that responsibility comes from being part of things: a place, a community,
+            and a web of consequences. Our small-batch wine and single-varietal olive oil are the
+            results of this attention. We manage our fields by hand, accepting that "it depends" is
+            the only honest response to the land.
+          </p>
+
+          <h2 className="subheader-l1">Low Intervention</h2>
+          <p>
+            We distrust solutions that feel too neat. In the cellar and the mill, we follow
+            low-intervention practices that allow wine and oil to remain "unfinished" and alive,
+            portable fragments of a specific time and a specific weather.
+          </p>
+
+          <h2 className="subheader-l1">Sufficiency Over Optimisation</h2>
+          <p>
+            "Enough" over "More". We have seen too many solutions create new problems by
+            prioritising speed over stability. At Sentieri, we value long feedback loops. We
+            prioritise the ongoing health of the soil and the community over short-term yields,
+            choosing a path of sufficiency that respects the limits and the rhythm of the
+            Mediterranean landscape.
+          </p>
+
+          <h2 className="subheader-l1">Landscape as a Living Laboratory<br />(Culture & Exchange)</h2>
+          <p>
+            The countryside should be a site of imagination and experimentation, not extraction.
+            Sentieri is a social ecology where agricultural production fuels cultural research. By
+            directing a portion of our proceeds to local artistic projects and ecological
+            restoration, we want to ensure that our work continues to be a dialogue. In this
+            open-ended project, human and non-human futures are entangled, working towards a
+            durable and vibrant future.
           </p>
         </>
       }

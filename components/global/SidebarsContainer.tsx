@@ -34,7 +34,6 @@ export default function SidebarsContainer() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          borderLeft: '1px solid var(--black)',
           borderRight: '1px solid var(--black)',
         }}
         onClick={() => handleToggle('left')}
@@ -76,7 +75,6 @@ export default function SidebarsContainer() {
           alignItems: 'center',
           justifyContent: 'center',
           borderLeft: '1px solid var(--black)',
-          borderRight: '1px solid var(--black)',
         }}
         onClick={() => handleToggle('right')}
         onMouseEnter={() => setRightHovered(true)}

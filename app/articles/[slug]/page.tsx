@@ -1,4 +1,5 @@
 import ContentPageTemplate from '@/components/templates/ContentPageTemplate'
+import { getArticleBySlug } from '@/lib/articles'
 
 function formatSlug(slug: string): string {
   return slug
@@ -13,9 +14,21 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  const article = getArticleBySlug(slug)
+
+  if (article) {
+    return (
+      <ContentPageTemplate
+        title={article.title}
+        content={article.content}
+        images={article.images}
+      />
+    )
+  }
+
+  // Fallback for articles not yet in the data file
   const title = formatSlug(slug)
 
-  // Placeholder content — will be replaced with Sanity CMS data
   const content = (
     <>
       <p>
@@ -39,7 +52,6 @@ export default async function ArticlePage({
     </>
   )
 
-  // Placeholder images
   const images = [
     { url: '/images/azienda/article-1.jpg', alt: 'Sentieri landscape' },
     { url: '/images/azienda/article-2.jpg', alt: 'Field work at Sentieri' },

@@ -25,7 +25,6 @@ export default function SidebarRight() {
           alignItems: 'center',
           justifyContent: 'center',
           borderLeft: '1px solid var(--black)',
-          borderRight: '1px solid var(--black)',
         }}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         onMouseEnter={() => setIsHovered(true)}

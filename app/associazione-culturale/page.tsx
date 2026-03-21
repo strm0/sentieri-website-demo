@@ -39,7 +39,7 @@ const sampleArticles = [
 export default function AssociazioneCulturalePage() {
   return (
     <GridPageTemplate
-      title="Associazione Culturale"
+      title={<>Associa<br />zione<br />Culturale</>}
       description={
         <>
           <p>

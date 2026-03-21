@@ -111,11 +111,9 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
             }}
           >
             <h2
+              className="heading-xl"
               style={{
-                fontFamily: 'var(--font-display)',
                 fontSize: '8.5rem',
-                letterSpacing: '-2px',
-                lineHeight: '100%',
                 color: '#000000',
                 margin: 0,
               }}

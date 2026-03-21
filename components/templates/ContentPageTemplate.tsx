@@ -30,11 +30,11 @@ export default function ContentPageTemplate({
         paddingLeft: '18px',
         paddingRight: '18px',
         paddingTop: '40px',
-        paddingBottom: '80px',
+        paddingBottom: '20px',
       }}
     >
       {/* Page Title */}
-      <h1 className="heading-xl" style={{ fontSize: '8.5rem', textAlign: mirrored ? 'left' : 'right', marginBottom: '160px', paddingRight: mirrored ? undefined : '20px', paddingLeft: mirrored ? '12px' : undefined }}>{title}</h1>
+      <h1 className="heading-xl" style={{ fontSize: 'clamp(3rem, 5.5vw, 7.5rem)', textAlign: mirrored ? 'left' : 'right', marginBottom: '160px', paddingRight: mirrored ? undefined : '20px', paddingLeft: mirrored ? '12px' : undefined }}>{title}</h1>
 
       {/* Content */}
       <div
@@ -135,17 +135,6 @@ export default function ContentPageTemplate({
         </>
       )}
 
-      {/* Center Divider */}
-      <div
-        style={{
-          position: 'absolute',
-          width: '1px',
-          height: '100%',
-          background: 'var(--black)',
-          left: mirrored ? '62%' : '38%',
-          pointerEvents: 'none',
-        }}
-      />
     </div>
   );
 }
