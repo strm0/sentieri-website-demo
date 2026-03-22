@@ -3,36 +3,29 @@ import GridPageTemplate from '@/components/templates/GridPageTemplate'
 // Sample featured articles (will be replaced with Sanity data later)
 const sampleArticles = [
   {
-    title: 'Residencies: tools for rural regeneration',
-    slug: 'residencies-rural-regeneration',
-    publishDate: '2024-11-20',
-    featuredImage: '/images/culturale/culturale-1.jpg',
+    title: 'A Walk from Elsewhere',
+    slug: 'a-walk-from-elsewhere',
+    publishDate: '2025-01-15',
+    featuredImage: '/images/articles/a-walk-from-elsewhere/Walk_with_image-5.jpg',
     entity: 'sogni' as const,
     author: 'Giulia Morlando',
   },
   {
-    title: 'Reforestation workshop',
-    slug: 'reforestation-workshop',
-    publishDate: '2024-11-05',
-    featuredImage: '/images/culturale/culturale-2.jpg',
+    title: 'A Case for Fertile Grounds',
+    slug: 'a-case-for-fertile-grounds',
+    publishDate: '2025-02-01',
+    featuredImage: '/images/articles/a-case-for-fertile-ground/a_case_for_fertile_ground-2.jpg',
     entity: 'sogni' as const,
-    author: 'Jack Lain Aiken',
+    author: 'Rebecca Douglass',
+    imagePosition: 'center 15%',
   },
   {
-    title: 'Cultural heritage in a changing landscape',
-    slug: 'cultural-heritage-landscape',
-    publishDate: '2024-10-18',
-    featuredImage: '/images/culturale/culturale-3.jpg',
+    title: 'The Dining Table',
+    slug: 'the-dining-table',
+    publishDate: '2025-03-01',
+    featuredImage: '/images/articles/the-dining-table/the-dining-table-1.jpg',
     entity: 'sogni' as const,
-    author: 'Giulia Morlando',
-  },
-  {
-    title: 'Art, ecology, and collective imagination',
-    slug: 'herbal-self-production-workshop',
-    publishDate: '2024-09-30',
-    featuredImage: '/images/culturale/culturale-4.jpg',
-    entity: 'sogni' as const,
-    author: 'Oscar Ström',
+    author: 'Rebecca Douglass',
   },
 ]
 
@@ -42,24 +35,58 @@ export default function AssociazioneCulturalePage() {
       title={<>Associa<br />zione<br />Culturale</>}
       description={
         <>
+          <p><em>A site of imagination, belonging, and experimentation.</em></p>
+
           <p>
-            The cultural association Sentieri di Sogni nurtures the cultural, ecological, and
-            social life that allows a landscape to regenerate and thrive. Through residencies,
-            workshops, and events, Sentieri di Sogni brings together artists, researchers, and
-            local communities — rooted in the local landscape yet connected to an international
-            network — to cultivate a more resilient and imaginative relationship with the rural
-            world.
+            The cultural association is the &ldquo;imagination&rdquo; of the farm. We see the countryside as
+            an active site of research, moving beyond a static observational perspective. Sentieri
+            di Sogni is a social ecology where artists, researchers, and the local community gather
+            to inhabit the tension between land cultivation and artistic creativity. This is what we practice:
           </p>
+
+
+          <h3 className="subheader-l2">Social Ecology &amp; Encounter</h3>
           <p>
-            Sentieri is not only about the land we inhabit, but about the wider network of
-            relations, human and more-than-human, that sustain us. We believe that rural areas,
-            often seen as peripheral, hold vital knowledge and potential for new ways of living
-            and imagining together.
+            We create space for a kind of ethical emplacement. With this, we mean that, through
+            sharing meals, workshops, and agricultural labour, our residents (both permanent and
+            passing through) can feel rooted in a sense of place whilst still being &ldquo;from
+            somewhere&rdquo;. From &ldquo;Long-Table&rdquo; harvest lunches to open-air symposiums, we hope to
+            create shared experiences that make the barriers between the urban and the rural more
+            porous.
           </p>
+
+          <h3 className="subheader-l2">Artistic Research as Inquiry, Residents and Experiments</h3>
           <p>
-            To ensure independence and continuity, 10% of our farm's annual sales go directly
-            into the association, funding projects that foster collective care, artistic
-            experimentation, and ecological resilience.
+            By inviting artists and thinkers to engage with the farm, we move past aesthetics
+            into &ldquo;lived practice.&rdquo; Our residencies do not seek finished works; they try to
+            witness moments in which human imagination encounters weather, soil, and non-human
+            lives.
+          </p>
+
+          <h3 className="subheader-l2">Living Heritage</h3>
+          <p>
+            We reject the idea that rural life is an artefact of the past. Preservation is not
+            about stopping time; it is about ensuring that local memory remains a living, adapting
+            force. We hope to revitalise heritage by making it a site of experimentation, making
+            sure that tradition is a dialogue with the future, not a retreat from it. We focus our
+            programming on heritage skills from traditional clay uses to forgotten fermentation
+            techniques, revitalised and reshaped for our continuously evolving context.
+          </p>
+
+          <h3 className="subheader-l2">Multi-Species Alliances</h3>
+          <p>
+            We work to restore the continuity between the vineyard and the wild, understanding
+            that our future is entangled with the futures of the insects, trees, and soil microbes.
+            This is when &ldquo;care beyond the human&rdquo; becomes real, combining ecological restoration
+            with education and collective action.
+          </p>
+
+          <h3 className="subheader-l2">The Circular Promise</h3>
+          <p>
+            Sentieri is an integrated system. We don&rsquo;t separate our agricultural production from
+            our creative ambitions. To ensure this research remains independent and rooted, a
+            portion of the proceeds from our wine and olive oil production is directly funnelled
+            back into the association to fund these programs.
           </p>
         </>
       }

@@ -1,13 +1,5 @@
 import ArticleCard from './ArticleCard'
-
-interface Article {
-  _id?: string
-  title: string
-  slug: string
-  publishDate: string
-  featuredImage?: string
-  entity?: 'stelle' | 'sogni'
-}
+import { Article } from '@/lib/types'
 
 interface ArticleGridProps {
   articles: Article[]

@@ -1,5 +1,5 @@
 import ContentPageTemplate from '@/components/templates/ContentPageTemplate'
-import { getArticleBySlug } from '@/lib/articles'
+import { getArticleBySlug, getEntityBySlug } from '@/lib/articles'
 
 function formatSlug(slug: string): string {
   return slug
@@ -22,6 +22,8 @@ export default async function ArticlePage({
         title={article.title}
         content={article.content}
         images={article.images}
+        mirrored={article.entity === 'sogni'}
+        audioSrc={article.audioSrc}
       />
     )
   }
@@ -63,6 +65,7 @@ export default async function ArticlePage({
       title={title}
       content={content}
       images={images}
+      mirrored={getEntityBySlug(slug) === 'sogni'}
     />
   )
 }

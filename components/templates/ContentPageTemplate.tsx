@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import AudioPlayer from '@/components/ui/AudioPlayer';
 
 interface ContentPageTemplateProps {
   title: string;
@@ -9,6 +10,7 @@ interface ContentPageTemplateProps {
   images: { url: string; alt: string }[];
   quote?: React.ReactNode;
   mirrored?: boolean;
+  audioSrc?: string;
 }
 
 export default function ContentPageTemplate({
@@ -17,6 +19,7 @@ export default function ContentPageTemplate({
   images,
   quote,
   mirrored = false,
+  audioSrc,
 }: ContentPageTemplateProps) {
   const textPane = (
     <div
@@ -111,6 +114,10 @@ export default function ContentPageTemplate({
           </div>
         ))}
       </div>
+
+      {audioSrc && (
+        <AudioPlayer src={audioSrc} title={title} />
+      )}
     </div>
   )
 

@@ -1,17 +1,7 @@
 'use client'
 
 import ArticleList from '../article/ArticleList'
-
-interface Article {
-  _id?: string
-  title: React.ReactNode
-  slug: string
-  publishDate: string
-  featuredImage?: string
-  entity?: 'stelle' | 'sogni'
-  author?: string
-  imagePosition?: string
-}
+import { Article } from '@/lib/types'
 
 interface GridPageTemplateProps {
   title: React.ReactNode

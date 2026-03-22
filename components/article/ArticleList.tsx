@@ -4,17 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import AnimatedUnderline from '@/components/ui/AnimatedUnderline'
-
-interface Article {
-  _id?: string
-  title: string
-  slug: string
-  publishDate: string
-  featuredImage?: string
-  entity?: 'stelle' | 'sogni'
-  author?: string
-  imagePosition?: string
-}
+import { Article } from '@/lib/types'
 
 interface ArticleListProps {
   articles: Article[]
