@@ -20,6 +20,7 @@ export default async function ArticlePage({
     return (
       <ContentPageTemplate
         title={article.title}
+        blocks={article.blocks}
         content={article.content}
         images={article.images}
         mirrored={article.entity === 'sogni'}

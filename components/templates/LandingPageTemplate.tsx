@@ -18,7 +18,7 @@ interface LandingPageTemplateProps {
 }
 
 export default function LandingPageTemplate({
-  heroImage = '/images/articles/our-way-here/OurWay-5.jpg',
+  heroImage = '/images/articles/our-way-here/our-way-here-5.jpg',
   agricolaCard,
   culturaleCard,
 }: LandingPageTemplateProps) {
