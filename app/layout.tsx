@@ -31,7 +31,7 @@ export default function RootLayout({
             marginLeft: 'var(--sidebar-width)',
             marginRight: 'var(--sidebar-width)',
             marginTop: 'var(--header-total-height)',
-            height: 'calc(100vh - var(--header-total-height))',
+            height: 'calc(100dvh - var(--header-total-height))',
             background: 'var(--cream)',
           }}
         >

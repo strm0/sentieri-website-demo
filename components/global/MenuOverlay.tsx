@@ -64,7 +64,7 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
         className="fixed inset-0 z-[40]"
         style={{
           top: 'var(--header-total-height)',
-          height: 'calc(100vh - var(--header-total-height))',
+          height: 'calc(100dvh - var(--header-total-height))',
           pointerEvents: isOpen ? 'auto' : 'none',
           background: 'transparent',
         }}
@@ -79,7 +79,7 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
           width: isOpen ? 'var(--overlay-width)' : '0',
           backgroundColor: '#FFFFFF',
           top: 'var(--header-total-height)',
-          height: 'calc(100vh - var(--header-total-height))',
+          height: 'calc(100dvh - var(--header-total-height))',
           left: isLeft ? '0' : undefined,
           right: isLeft ? undefined : '0',
           pointerEvents: isOpen ? 'auto' : 'none',
