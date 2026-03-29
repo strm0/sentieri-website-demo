@@ -45,7 +45,7 @@ export default function FilterPills({ activeFilter, onChange }: FilterPillsProps
             transition-all duration-200
             border border-black rounded-[20px]
             cursor-pointer
-            hover:underline
+            clickable
             ${activeFilter === filter.value ? 'font-bold' : ''}
           `}
           style={{

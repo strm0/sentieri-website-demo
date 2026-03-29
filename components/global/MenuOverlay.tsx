@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import AnimatedUnderline from '@/components/ui/AnimatedUnderline'
+import { useCanHover } from '@/lib/useCanHover'
 
 interface MenuOverlayProps {
   isOpen: boolean
@@ -31,6 +32,7 @@ const rightMenuItems: MenuItem[] = [
 
 export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const canHover = useCanHover()
 
   // Handle ESC key
   useEffect(() => {
@@ -61,8 +63,8 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
       <div
         className="fixed inset-0 z-[40]"
         style={{
-          top: 'var(--header-height)',
-          height: 'calc(100vh - var(--header-height))',
+          top: 'var(--header-total-height)',
+          height: 'calc(100vh - var(--header-total-height))',
           pointerEvents: isOpen ? 'auto' : 'none',
           background: 'transparent',
         }}
@@ -74,10 +76,10 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
       <div
         className="fixed z-[40] transition-all duration-300 ease-in-out"
         style={{
-          width: isOpen ? '62vw' : '0',
+          width: isOpen ? 'var(--overlay-width)' : '0',
           backgroundColor: '#FFFFFF',
-          top: 'var(--header-height)',
-          height: 'calc(100vh - var(--header-height))',
+          top: 'var(--header-total-height)',
+          height: 'calc(100vh - var(--header-total-height))',
           left: isLeft ? '0' : undefined,
           right: isLeft ? undefined : '0',
           pointerEvents: isOpen ? 'auto' : 'none',
@@ -98,8 +100,8 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
           {/* Main Heading — top area */}
           <Link
             href={headingHref}
-            onMouseEnter={() => setHoveredItem(headingKey)}
-            onMouseLeave={() => setHoveredItem(null)}
+            onMouseEnter={canHover ? () => setHoveredItem(headingKey) : undefined}
+            onMouseLeave={canHover ? () => setHoveredItem(null) : undefined}
             onClick={(e) => {
               e.stopPropagation()
               onClose()
@@ -113,7 +115,7 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
             <h2
               className="heading-xl"
               style={{
-                fontSize: '8.5rem',
+                fontSize: 'clamp(2.5rem, 8vw, 8.5rem)',
                 color: '#000000',
                 margin: 0,
               }}
@@ -128,69 +130,93 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
             </h2>
           </Link>
 
-          {/* Nav links — positioned absolutely to spread across the overlay */}
+          {/* Nav links — desktop: absolutely positioned, mobile: vertical stack */}
           <nav>
-            {isLeft ? (
-              <>
-                {/* Wine — mid-left */}
-                <div style={{ position: 'absolute', left: '18px', top: '50%', transform: 'translateY(-50%)' }}>
+            {/* Desktop layout (>= 1024px) — absolute positioning */}
+            <div className="hidden lg:block">
+              {isLeft ? (
+                <>
+                  {/* Wine — mid-left */}
+                  <div style={{ position: 'absolute', left: '18px', top: '50%', transform: 'translateY(-50%)' }}>
+                    <MenuLink
+                      item={leftMenuItems[0]}
+                      hoveredItem={hoveredItem}
+                      setHoveredItem={setHoveredItem}
+                      onClose={onClose}
+                      canHover={canHover}
+                    />
+                  </div>
+                  {/* Olive Oil — bottom-left */}
+                  <div style={{ position: 'absolute', left: '18px', bottom: '40px' }}>
+                    <MenuLink
+                      item={leftMenuItems[1]}
+                      hoveredItem={hoveredItem}
+                      setHoveredItem={setHoveredItem}
+                      onClose={onClose}
+                      canHover={canHover}
+                    />
+                  </div>
+                  {/* Shop — bottom-right */}
+                  <div style={{ position: 'absolute', right: 'calc(var(--sidebar-width) + 18px)', bottom: '40px' }}>
+                    <MenuLink
+                      item={leftMenuItems[2]}
+                      hoveredItem={hoveredItem}
+                      setHoveredItem={setHoveredItem}
+                      onClose={onClose}
+                      canHover={canHover}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Residencies — mid-right */}
+                  <div style={{ position: 'absolute', right: '18px', top: '50%', transform: 'translateY(-50%)' }}>
+                    <MenuLink
+                      item={rightMenuItems[0]}
+                      hoveredItem={hoveredItem}
+                      setHoveredItem={setHoveredItem}
+                      onClose={onClose}
+                      canHover={canHover}
+                    />
+                  </div>
+                  {/* Archive — bottom-left */}
+                  <div style={{ position: 'absolute', left: 'calc(var(--sidebar-width) + 18px)', bottom: '40px' }}>
+                    <MenuLink
+                      item={rightMenuItems[1]}
+                      hoveredItem={hoveredItem}
+                      setHoveredItem={setHoveredItem}
+                      onClose={onClose}
+                      canHover={canHover}
+                    />
+                  </div>
+                  {/* About us — bottom-right */}
+                  <div style={{ position: 'absolute', right: '18px', bottom: '40px' }}>
+                    <MenuLink
+                      item={rightMenuItems[2]}
+                      hoveredItem={hoveredItem}
+                      setHoveredItem={setHoveredItem}
+                      onClose={onClose}
+                      canHover={canHover}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Mobile layout (< 1024px) — vertical stack */}
+            <div className="flex flex-col gap-4 mt-8 lg:hidden">
+              {menuItems.map((item) => (
+                <div key={item.href} style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}>
                   <MenuLink
-                    item={leftMenuItems[0]}
+                    item={item}
                     hoveredItem={hoveredItem}
                     setHoveredItem={setHoveredItem}
                     onClose={onClose}
+                    canHover={canHover}
                   />
                 </div>
-                {/* Olive Oil — bottom-left */}
-                <div style={{ position: 'absolute', left: '18px', bottom: '40px' }}>
-                  <MenuLink
-                    item={leftMenuItems[1]}
-                    hoveredItem={hoveredItem}
-                    setHoveredItem={setHoveredItem}
-                    onClose={onClose}
-                  />
-                </div>
-                {/* Shop — bottom-right */}
-                <div style={{ position: 'absolute', right: 'calc(var(--sidebar-width) + 18px)', bottom: '40px' }}>
-                  <MenuLink
-                    item={leftMenuItems[2]}
-                    hoveredItem={hoveredItem}
-                    setHoveredItem={setHoveredItem}
-                    onClose={onClose}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                {/* Residencies — mid-right */}
-                <div style={{ position: 'absolute', right: '18px', top: '50%', transform: 'translateY(-50%)' }}>
-                  <MenuLink
-                    item={rightMenuItems[0]}
-                    hoveredItem={hoveredItem}
-                    setHoveredItem={setHoveredItem}
-                    onClose={onClose}
-                  />
-                </div>
-                {/* Archive — bottom-left */}
-                <div style={{ position: 'absolute', left: 'calc(var(--sidebar-width) + 18px)', bottom: '40px' }}>
-                  <MenuLink
-                    item={rightMenuItems[1]}
-                    hoveredItem={hoveredItem}
-                    setHoveredItem={setHoveredItem}
-                    onClose={onClose}
-                  />
-                </div>
-                {/* About us — bottom-right */}
-                <div style={{ position: 'absolute', right: '18px', bottom: '40px' }}>
-                  <MenuLink
-                    item={rightMenuItems[2]}
-                    hoveredItem={hoveredItem}
-                    setHoveredItem={setHoveredItem}
-                    onClose={onClose}
-                  />
-                </div>
-              </>
-            )}
+              ))}
+            </div>
           </nav>
         </div>
       </div>
@@ -203,17 +229,19 @@ function MenuLink({
   hoveredItem,
   setHoveredItem,
   onClose,
+  canHover,
 }: {
   item: MenuItem
   hoveredItem: string | null
   setHoveredItem: (item: string | null) => void
   onClose: () => void
+  canHover: boolean
 }) {
   return (
     <Link
       href={item.href}
-      onMouseEnter={() => setHoveredItem(item.href)}
-      onMouseLeave={() => setHoveredItem(null)}
+      onMouseEnter={canHover ? () => setHoveredItem(item.href) : undefined}
+      onMouseLeave={canHover ? () => setHoveredItem(null) : undefined}
       style={{
         display: 'block',
         textDecoration: 'none',

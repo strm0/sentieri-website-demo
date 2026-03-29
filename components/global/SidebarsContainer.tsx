@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import MenuOverlay from './MenuOverlay';
+import MobileSidebarBar from './MobileSidebarBar';
 import AnimatedUnderline from '@/components/ui/AnimatedUnderline';
+import { useCanHover } from '@/lib/useCanHover';
 
 export default function SidebarsContainer() {
   const [openSide, setOpenSide] = useState<'left' | 'right' | null>(null);
   const [leftHovered, setLeftHovered] = useState(false);
   const [rightHovered, setRightHovered] = useState(false);
+  const canHover = useCanHover();
 
   const handleToggle = (side: 'left' | 'right') => {
     if (openSide === side) {
@@ -21,7 +24,7 @@ export default function SidebarsContainer() {
     <>
       {/* Left Sidebar (Di Stelle) */}
       <aside
-        className="transition-all duration-300 ease-in-out"
+        className="hidden lg:flex items-center justify-center transition-all duration-300 ease-in-out"
         style={{
           width: 'var(--sidebar-width)',
           background: 'var(--stelle-green)',
@@ -31,14 +34,11 @@ export default function SidebarsContainer() {
           top: 'var(--header-height)',
           zIndex: 50,
           cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
           borderRight: '1px solid var(--black)',
         }}
         onClick={() => handleToggle('left')}
-        onMouseEnter={() => setLeftHovered(true)}
-        onMouseLeave={() => setLeftHovered(false)}
+        onMouseEnter={canHover ? () => setLeftHovered(true) : undefined}
+        onMouseLeave={canHover ? () => setLeftHovered(false) : undefined}
         aria-label="Open Di Stelle menu"
       >
         <div style={{ transform: 'rotate(-90deg)' }}>
@@ -61,7 +61,7 @@ export default function SidebarsContainer() {
 
       {/* Right Sidebar (Di Sogni) */}
       <aside
-        className="transition-all duration-300 ease-in-out"
+        className="hidden lg:flex items-center justify-center transition-all duration-300 ease-in-out"
         style={{
           width: 'var(--sidebar-width)',
           background: 'var(--sogni-pink)',
@@ -71,14 +71,11 @@ export default function SidebarsContainer() {
           top: 'var(--header-height)',
           zIndex: 50,
           cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
           borderLeft: '1px solid var(--black)',
         }}
         onClick={() => handleToggle('right')}
-        onMouseEnter={() => setRightHovered(true)}
-        onMouseLeave={() => setRightHovered(false)}
+        onMouseEnter={canHover ? () => setRightHovered(true) : undefined}
+        onMouseLeave={canHover ? () => setRightHovered(false) : undefined}
         aria-label="Open Di Sogni menu"
       >
         <div style={{ transform: 'rotate(90deg)' }}>
@@ -98,6 +95,12 @@ export default function SidebarsContainer() {
           </AnimatedUnderline>
         </div>
       </aside>
+
+      {/* Mobile Sidebar Bar (< 1024px) */}
+      <MobileSidebarBar
+        openSide={openSide}
+        onToggle={handleToggle}
+      />
 
       {/* Menu Overlays */}
       <MenuOverlay

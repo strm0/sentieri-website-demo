@@ -121,27 +121,147 @@ export default function ContentPageTemplate({
     </div>
   )
 
-  return (
-    <div
-      style={{
-        display: 'flex',
-        height: '100%',
-        position: 'relative',
-      }}
-    >
-      {/* Render panes in order based on mirrored prop */}
-      {mirrored ? (
-        <>
-          {imagePane}
-          {textPane}
-        </>
-      ) : (
-        <>
-          {textPane}
-          {imagePane}
-        </>
-      )}
+  const firstImage = images.length > 0 ? images[0] : null;
+  const distributeImages = images.slice(1);
 
-    </div>
+  function renderMobileImage(image: { url: string; alt: string }, key: string) {
+    return (
+      <div key={key} style={{ width: '100%', position: 'relative', margin: '20px 0' }}>
+        <Image
+          src={image.url}
+          alt={image.alt}
+          width={1200}
+          height={800}
+          sizes="100vw"
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+          unoptimized
+        />
+      </div>
+    );
+  }
+
+  const MIN_GAP = 6;
+  const contentChildren = React.Children.toArray(content);
+  const interleaved: React.ReactNode[] = [];
+  let imageIndex = 0;
+  let sinceLastImage = MIN_GAP; // start at MIN_GAP so first eligible point can trigger
+
+  contentChildren.forEach((child, i) => {
+    interleaved.push(
+      <div key={`text-${i}`} style={{ padding: '0 16px' }}>
+        {child}
+      </div>
+    );
+    sinceLastImage++;
+
+    if (sinceLastImage >= MIN_GAP && imageIndex < distributeImages.length) {
+      interleaved.push(renderMobileImage(distributeImages[imageIndex], `mid-${imageIndex}`));
+      imageIndex++;
+      sinceLastImage = 0;
+    }
+  });
+
+  // Any remaining images go at the end
+  while (imageIndex < distributeImages.length) {
+    interleaved.push(renderMobileImage(distributeImages[imageIndex], `end-${imageIndex}`));
+    imageIndex++;
+  }
+
+  return (
+    <>
+      {/* Desktop layout (>= 1024px) — unchanged */}
+      <div
+        className="hidden lg:flex"
+        style={{
+          height: '100%',
+          position: 'relative',
+        }}
+      >
+        {mirrored ? (
+          <>
+            {imagePane}
+            {textPane}
+          </>
+        ) : (
+          <>
+            {textPane}
+            {imagePane}
+          </>
+        )}
+      </div>
+
+      {/* Mobile layout (< 1024px) — single column interleaved */}
+      <div
+        className="lg:hidden"
+        style={{
+          width: '100%',
+          overflowY: 'auto',
+          background: '#FFFFFF',
+          paddingBottom: '40px',
+        }}
+      >
+        {/* Title */}
+        <div style={{ padding: '24px 16px 0' }}>
+          <h1
+            className="heading-xl"
+            style={{
+              fontSize: 'clamp(2rem, 8vw, 3.5rem)',
+              textAlign: 'left',
+              marginBottom: '60px',
+            }}
+          >
+            {title}
+          </h1>
+        </div>
+
+        {/* First image */}
+        {firstImage && (
+          <div style={{ width: '100%', position: 'relative' }}>
+            <Image
+              src={firstImage.url}
+              alt={firstImage.alt}
+              width={1200}
+              height={800}
+              sizes="100vw"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+              }}
+              unoptimized
+            />
+          </div>
+        )}
+
+        {/* Quote (mobile: styled blockquote between first image and body text) */}
+        {quote && (
+          <div
+            style={{
+              padding: '24px 16px',
+              fontFamily: 'var(--font-body)',
+              fontSize: '1.3rem',
+              lineHeight: '1.4',
+              color: '#000000',
+              textAlign: 'right',
+              fontStyle: 'italic',
+            }}
+          >
+            {quote}
+          </div>
+        )}
+
+        {/* Interleaved body text + images */}
+        <div className="body-text" style={{ fontFamily: 'var(--font-body)', letterSpacing: 0 }}>
+          {interleaved}
+        </div>
+
+        {/* Audio player */}
+        {audioSrc && (
+          <div style={{ position: 'sticky', bottom: 0 }}>
+            <AudioPlayer src={audioSrc} title={title} />
+          </div>
+        )}
+      </div>
+    </>
   );
 }

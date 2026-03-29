@@ -25,306 +25,459 @@ export default function LandingPageTemplate({
   const [hoveredCard, setHoveredCard] = useState<'agricola' | 'culturale' | null>(null)
 
   const contentHeight = 'calc(100vh - var(--header-height))'
+  const mobileContentHeight = 'calc(100svh - var(--header-total-height))'
+
+  const agricolaLinks = [
+    { href: '/wine', label: 'Wine' },
+    { href: '/olive-oil', label: 'Olive Oil' },
+    { href: '/shop', label: 'Shop' },
+  ]
+
+  const culturaleLinks = [
+    { href: '/residencies', label: 'Residencies' },
+    { href: '/research-archive', label: 'Archive' },
+    { href: '/about', label: 'About us' },
+  ]
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: contentHeight,
-        overflowY: 'auto',
-        scrollSnapType: 'y mandatory',
-      }}
-      className="no-scrollbar"
-    >
-      {/* SECTION 1 — Hero */}
-      <section
+    <>
+      {/* Desktop layout (>= 1024px) — unchanged */}
+      <div
+        className="hidden lg:block"
         style={{
           width: '100%',
           height: contentHeight,
-          minHeight: contentHeight,
-          scrollSnapAlign: 'start',
-          position: 'relative',
-          overflow: 'hidden',
+          overflowY: 'auto',
+          scrollSnapType: 'y mandatory',
         }}
       >
-        <Image
-          src={heroImage}
-          alt="Sentieri landscape"
-          fill
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'center 30%',
-            filter: 'grayscale(100%)',
-          }}
-          priority
-          unoptimized
-        />
-
-        {/* Tagline — positioned like page titles (38% left pane, right-aligned) */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '40px',
-            left: '0',
-            width: '38%',
-            paddingLeft: '18px',
-            paddingRight: '18px',
-          }}
-        >
-          <h1
-            className="heading-xl"
+        <div className="no-scrollbar" style={{ width: '100%', height: '100%', overflowY: 'auto', scrollSnapType: 'y mandatory' }}>
+          {/* SECTION 1 — Hero */}
+          <section
             style={{
-              fontSize: 'clamp(3rem, 5.5vw, 7.5rem)',
-              textAlign: 'left',
-              paddingLeft: '12px',
-              color: '#FFFFFF',
-              marginBottom: 0,
+              width: '100%',
+              height: contentHeight,
+              minHeight: contentHeight,
+              scrollSnapAlign: 'start',
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
-            An agroecological project where agriculture, art, and community meet.
-          </h1>
-        </div>
+            <Image
+              src={heroImage}
+              alt="Sentieri landscape"
+              fill
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center 30%',
+                filter: 'grayscale(100%)',
+              }}
+              priority
+              unoptimized
+            />
 
-        {/* Scroll indicator — three arrows */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '24px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '2px',
-            opacity: 0.7,
-          }}
-        >
-          {[0, 1, 2].map((i) => (
-            <svg
-              key={i}
-              width="14"
-              height="8"
-              viewBox="0 0 14 8"
-              fill="none"
-              style={{ opacity: 1 - i * 0.25 }}
+            {/* Tagline */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '40px',
+                left: '0',
+                width: '38%',
+                paddingLeft: '18px',
+                paddingRight: '18px',
+              }}
             >
-              <path
-                d="M1 1L7 7L13 1"
-                stroke="#FFFFFF"
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          ))}
-        </div>
-      </section>
+              <h1
+                className="heading-xl"
+                style={{
+                  fontSize: 'clamp(3rem, 5.5vw, 7.5rem)',
+                  textAlign: 'left',
+                  paddingLeft: '12px',
+                  color: '#FFFFFF',
+                  marginBottom: 0,
+                }}
+              >
+                An agroecological project where agriculture, art, and community meet.
+              </h1>
+            </div>
 
-      {/* SECTION 2 — Entity selection */}
-      <section
+            {/* Scroll indicator */}
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '24px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '2px',
+                opacity: 0.7,
+              }}
+            >
+              {[0, 1, 2].map((i) => (
+                <svg
+                  key={i}
+                  width="14"
+                  height="8"
+                  viewBox="0 0 14 8"
+                  fill="none"
+                  style={{ opacity: 1 - i * 0.25 }}
+                >
+                  <path
+                    d="M1 1L7 7L13 1"
+                    stroke="#FFFFFF"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              ))}
+            </div>
+          </section>
+
+          {/* SECTION 2 — Entity selection */}
+          <section
+            style={{
+              width: '100%',
+              height: contentHeight,
+              minHeight: contentHeight,
+              scrollSnapAlign: 'start',
+              display: 'flex',
+              background: '#FFFFFF',
+            }}
+          >
+            {/* Azienda Agricola card */}
+            <div
+              onMouseEnter={() => setHoveredCard('agricola')}
+              onMouseLeave={() => setHoveredCard(null)}
+              style={{
+                width: hoveredCard === 'agricola' ? '55%' : hoveredCard === 'culturale' ? '45%' : '50%',
+                height: '100%',
+                color: '#000000',
+                background: '#FFFFFF',
+                transition: 'width 0.4s ease',
+                overflow: 'hidden',
+                position: 'relative',
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  whiteSpace: 'nowrap',
+                  transition: 'transform 0.5s ease, top 0.5s ease, left 0.5s ease',
+                  top: hoveredCard === 'agricola' ? '40px' : '50%',
+                  left: hoveredCard === 'agricola' ? '30px' : '50%',
+                  transform: hoveredCard === 'agricola'
+                    ? 'translate(0, 0) rotate(0deg)'
+                    : 'translate(-50%, -50%) rotate(-90deg)',
+                  transformOrigin: 'center center',
+                  zIndex: 1,
+                }}
+              >
+                <Link href={agricolaCard.href} style={{ textDecoration: 'none', color: '#000000' }}>
+                  <AnimatedUnderline>
+                    <h2 style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1.4rem, 2.2vw, 2rem)', letterSpacing: '-0.02em', lineHeight: '1.2', margin: 0 }}>
+                      {agricolaCard.title}
+                    </h2>
+                  </AnimatedUnderline>
+                </Link>
+              </div>
+
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '90px',
+                  left: '30px',
+                  right: '30px',
+                  opacity: hoveredCard === 'agricola' ? 1 : 0,
+                  transition: `opacity 0.5s ease ${hoveredCard === 'agricola' ? '0.45s' : '0s'}`,
+                  pointerEvents: hoveredCard === 'agricola' ? 'auto' : 'none',
+                }}
+              >
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.9rem, 1.4vw, 1.3rem)', lineHeight: '1.4', margin: 0 }}>
+                  {agricolaCard.description}
+                </p>
+              </div>
+
+              <CardNavLink href="/wine" label="Wine" visible={hoveredCard === 'agricola'} style={{ left: '30px', top: '50%', transform: 'translateY(-50%)' }} />
+              <CardNavLink href="/olive-oil" label="Olive Oil" visible={hoveredCard === 'agricola'} style={{ left: '30px', bottom: '40px' }} />
+              <CardNavLink href="/shop" label="Shop" visible={hoveredCard === 'agricola'} style={{ right: '30px', bottom: '40px' }} />
+            </div>
+
+            {/* Associazione Culturale card */}
+            <div
+              onMouseEnter={() => setHoveredCard('culturale')}
+              onMouseLeave={() => setHoveredCard(null)}
+              style={{
+                width: hoveredCard === 'culturale' ? '55%' : hoveredCard === 'agricola' ? '45%' : '50%',
+                height: '100%',
+                color: '#000000',
+                background: '#FFFFFF',
+                transition: 'width 0.4s ease',
+                overflow: 'hidden',
+                position: 'relative',
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  whiteSpace: 'nowrap',
+                  transition: 'transform 0.5s ease, top 0.5s ease, left 0.5s ease',
+                  top: hoveredCard === 'culturale' ? '40px' : '50%',
+                  left: hoveredCard === 'culturale' ? '30px' : '50%',
+                  transform: hoveredCard === 'culturale'
+                    ? 'translate(0, 0) rotate(0deg)'
+                    : 'translate(-50%, -50%) rotate(90deg)',
+                  transformOrigin: 'center center',
+                  zIndex: 1,
+                }}
+              >
+                <Link href={culturaleCard.href} style={{ textDecoration: 'none', color: '#000000' }}>
+                  <AnimatedUnderline>
+                    <h2 style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1.4rem, 2.2vw, 2rem)', letterSpacing: '-0.02em', lineHeight: '1.2', margin: 0 }}>
+                      {culturaleCard.title}
+                    </h2>
+                  </AnimatedUnderline>
+                </Link>
+              </div>
+
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '90px',
+                  left: '30px',
+                  right: '30px',
+                  opacity: hoveredCard === 'culturale' ? 1 : 0,
+                  transition: `opacity 0.5s ease ${hoveredCard === 'culturale' ? '0.45s' : '0s'}`,
+                  pointerEvents: hoveredCard === 'culturale' ? 'auto' : 'none',
+                }}
+              >
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.9rem, 1.4vw, 1.3rem)', lineHeight: '1.4', margin: 0 }}>
+                  {culturaleCard.description}
+                </p>
+              </div>
+
+              <CardNavLink href="/residencies" label="Residencies" visible={hoveredCard === 'culturale'} style={{ right: '30px', top: '50%', transform: 'translateY(-50%)' }} />
+              <CardNavLink href="/research-archive" label="Archive" visible={hoveredCard === 'culturale'} style={{ left: '30px', bottom: '40px' }} />
+              <CardNavLink href="/about" label="About us" visible={hoveredCard === 'culturale'} style={{ right: '30px', bottom: '40px' }} />
+            </div>
+          </section>
+        </div>
+      </div>
+
+      {/* Mobile layout (< 1024px) */}
+      <div
+        className="lg:hidden no-scrollbar"
         style={{
           width: '100%',
-          height: contentHeight,
-          minHeight: contentHeight,
-          scrollSnapAlign: 'start',
-          display: 'flex',
+          height: mobileContentHeight,
+          overflowY: 'auto',
+          scrollSnapType: 'y mandatory',
           background: '#FFFFFF',
         }}
       >
-        {/* Azienda Agricola card */}
-        <div
-          onMouseEnter={() => setHoveredCard('agricola')}
-          onMouseLeave={() => setHoveredCard(null)}
+        {/* SECTION 1 — Hero */}
+        <section
           style={{
-            width: hoveredCard === 'agricola' ? '55%' : hoveredCard === 'culturale' ? '45%' : '50%',
-            height: '100%',
-            color: '#000000',
-            background: '#FFFFFF',
-            transition: 'width 0.4s ease',
-            overflow: 'hidden',
+            width: '100%',
+            height: mobileContentHeight,
+            minHeight: mobileContentHeight,
+            scrollSnapAlign: 'start',
             position: 'relative',
+            overflow: 'hidden',
           }}
         >
-          {/* Title — animates from rotated-centered to horizontal-left */}
-          <div
+          <Image
+            src={heroImage}
+            alt="Sentieri landscape"
+            fill
             style={{
-              position: 'absolute',
-              whiteSpace: 'nowrap',
-              transition: 'transform 0.5s ease, top 0.5s ease, left 0.5s ease',
-              top: hoveredCard === 'agricola' ? '40px' : '50%',
-              left: hoveredCard === 'agricola' ? '30px' : '50%',
-              transform: hoveredCard === 'agricola'
-                ? 'translate(0, 0) rotate(0deg)'
-                : 'translate(-50%, -50%) rotate(-90deg)',
-              transformOrigin: 'center center',
-              zIndex: 1,
+              objectFit: 'cover',
+              objectPosition: 'center 30%',
+              filter: 'grayscale(100%)',
             }}
-          >
-            <Link
-              href={agricolaCard.href}
-              style={{ textDecoration: 'none', color: '#000000' }}
-            >
-              <AnimatedUnderline>
-                <h2
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: 'clamp(1.4rem, 2.2vw, 2rem)',
-                    letterSpacing: '-0.02em',
-                    lineHeight: '1.2',
-                    margin: 0,
-                  }}
-                >
-                  {agricolaCard.title}
-                </h2>
-              </AnimatedUnderline>
-            </Link>
-          </div>
+            priority
+            unoptimized
+          />
 
-          {/* Description (fade in on hover) */}
+          {/* Tagline */}
           <div
             style={{
               position: 'absolute',
-              top: '90px',
-              left: '30px',
-              right: '30px',
-              opacity: hoveredCard === 'agricola' ? 1 : 0,
-              transition: `opacity 0.5s ease ${hoveredCard === 'agricola' ? '0.45s' : '0s'}`,
-              pointerEvents: hoveredCard === 'agricola' ? 'auto' : 'none',
+              top: '40px',
+              left: '0',
+              width: '80%',
+              padding: '0 16px',
             }}
           >
-            <p
+            <h1
+              className="heading-xl"
               style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(0.9rem, 1.4vw, 1.3rem)',
-                lineHeight: '1.4',
-                margin: 0,
+                fontSize: 'clamp(1.8rem, 6vw, 2.5rem)',
+                textAlign: 'left',
+                color: '#FFFFFF',
+                marginBottom: 0,
               }}
             >
-              {agricolaCard.description}
-            </p>
+              An agroecological project where agriculture, art, and community meet.
+            </h1>
           </div>
 
-          {/* Nav links — scattered like sidebar (fade in on hover) */}
-          {/* Wine — mid-left */}
-          <CardNavLink
-            href="/wine"
-            label="Wine"
-            visible={hoveredCard === 'agricola'}
-            style={{ left: '30px', top: '50%', transform: 'translateY(-50%)' }}
-          />
-          {/* Olive Oil — bottom-left */}
-          <CardNavLink
-            href="/olive-oil"
-            label="Olive Oil"
-            visible={hoveredCard === 'agricola'}
-            style={{ left: '30px', bottom: '40px' }}
-          />
-          {/* Shop — bottom-right */}
-          <CardNavLink
-            href="/shop"
-            label="Shop"
-            visible={hoveredCard === 'agricola'}
-            style={{ right: '30px', bottom: '40px' }}
-          />
-        </div>
+          {/* Scroll indicator */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '24px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '2px',
+              opacity: 0.7,
+            }}
+          >
+            {[0, 1, 2].map((i) => (
+              <svg
+                key={i}
+                width="14"
+                height="8"
+                viewBox="0 0 14 8"
+                fill="none"
+                style={{ opacity: 1 - i * 0.25 }}
+              >
+                <path
+                  d="M1 1L7 7L13 1"
+                  stroke="#FFFFFF"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ))}
+          </div>
+        </section>
 
-        {/* Associazione Culturale card */}
-        <div
-          onMouseEnter={() => setHoveredCard('culturale')}
-          onMouseLeave={() => setHoveredCard(null)}
+        {/* SECTION 2 — Entity cards (side by side) */}
+        <section
           style={{
-            width: hoveredCard === 'culturale' ? '55%' : hoveredCard === 'agricola' ? '45%' : '50%',
-            height: '100%',
-            color: '#000000',
+            width: '100%',
+            height: mobileContentHeight,
+            minHeight: mobileContentHeight,
+            scrollSnapAlign: 'start',
+            display: 'flex',
             background: '#FFFFFF',
-            transition: 'width 0.4s ease',
-            overflow: 'hidden',
-            position: 'relative',
           }}
         >
-          {/* Title — animates from rotated-centered to horizontal-left */}
-          <div
+          <MobileEntityCard
+            title={agricolaCard.title}
+            titleHref={agricolaCard.href}
+            description={agricolaCard.description}
+            links={agricolaLinks}
+          />
+          {/* Vertical divider */}
+          <div style={{ width: '1px', background: '#000000', flexShrink: 0 }} />
+          <MobileEntityCard
+            title={culturaleCard.title}
+            titleHref={culturaleCard.href}
+            description={culturaleCard.description}
+            links={culturaleLinks}
+          />
+        </section>
+      </div>
+    </>
+  )
+}
+
+function MobileEntityCard({
+  title,
+  titleHref,
+  description,
+  links,
+}: {
+  title: string
+  titleHref: string
+  description: string
+  links: { href: string; label: string }[]
+}) {
+  return (
+    <div
+      style={{
+        width: '50%',
+        height: '100%',
+        background: '#FFFFFF',
+        padding: '40px 24px',
+        display: 'flex',
+        flexDirection: 'column',
+        overflowY: 'auto',
+      }}
+    >
+      {/* Title — matches MobileSidebarBar font styling */}
+      <Link href={titleHref} style={{ textDecoration: 'none', color: '#000000' }}>
+        <AnimatedUnderline>
+          <h2
             style={{
-              position: 'absolute',
-              whiteSpace: 'nowrap',
-              transition: 'transform 0.5s ease, top 0.5s ease, left 0.5s ease',
-              top: hoveredCard === 'culturale' ? '40px' : '50%',
-              left: hoveredCard === 'culturale' ? '30px' : '50%',
-              transform: hoveredCard === 'culturale'
-                ? 'translate(0, 0) rotate(0deg)'
-                : 'translate(-50%, -50%) rotate(90deg)',
-              transformOrigin: 'center center',
-              zIndex: 1,
+              fontFamily: 'var(--font-body)',
+              fontSize: '1.2rem',
+              letterSpacing: '-0.07em',
+              lineHeight: '1.2',
+              margin: 0,
             }}
           >
-            <Link
-              href={culturaleCard.href}
-              style={{ textDecoration: 'none', color: '#000000' }}
-            >
-              <AnimatedUnderline>
-                <h2
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: 'clamp(1.4rem, 2.2vw, 2rem)',
-                    letterSpacing: '-0.02em',
-                    lineHeight: '1.2',
-                    margin: 0,
-                  }}
-                >
-                  {culturaleCard.title}
-                </h2>
-              </AnimatedUnderline>
-            </Link>
-          </div>
+            {title}
+          </h2>
+        </AnimatedUnderline>
+      </Link>
 
-          {/* Description (fade in on hover) */}
-          <div
+      {/* Description */}
+      <p
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: 'clamp(0.8rem, 2.5vw, 1rem)',
+          lineHeight: '1.4',
+          margin: 0,
+          marginTop: '16px',
+        }}
+      >
+        {description}
+      </p>
+
+      {/* Nav links */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0px',
+          marginTop: '20px',
+        }}
+      >
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
             style={{
-              position: 'absolute',
-              top: '90px',
-              left: '30px',
-              right: '30px',
-              opacity: hoveredCard === 'culturale' ? 1 : 0,
-              transition: `opacity 0.5s ease ${hoveredCard === 'culturale' ? '0.45s' : '0s'}`,
-              pointerEvents: hoveredCard === 'culturale' ? 'auto' : 'none',
+              textDecoration: 'none',
+              color: '#000000',
+              minHeight: '44px',
+              display: 'flex',
+              alignItems: 'center',
             }}
           >
-            <p
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(0.9rem, 1.4vw, 1.3rem)',
-                lineHeight: '1.4',
-                margin: 0,
-              }}
-            >
-              {culturaleCard.description}
-            </p>
-          </div>
-
-          {/* Nav links — scattered like sidebar (fade in on hover) */}
-          {/* Residencies — mid-right */}
-          <CardNavLink
-            href="/residencies"
-            label="Residencies"
-            visible={hoveredCard === 'culturale'}
-            style={{ right: '30px', top: '50%', transform: 'translateY(-50%)' }}
-          />
-          {/* Archive — bottom-left */}
-          <CardNavLink
-            href="/research-archive"
-            label="Archive"
-            visible={hoveredCard === 'culturale'}
-            style={{ left: '30px', bottom: '40px' }}
-          />
-          {/* About us — bottom-right */}
-          <CardNavLink
-            href="/about"
-            label="About us"
-            visible={hoveredCard === 'culturale'}
-            style={{ right: '30px', bottom: '40px' }}
-          />
-        </div>
-      </section>
+            <AnimatedUnderline>
+              <span
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '1rem',
+                  lineHeight: '1.4',
+                }}
+              >
+                {link.label}
+              </span>
+            </AnimatedUnderline>
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }

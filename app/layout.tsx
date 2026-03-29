@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, padding: 0, overflow: 'hidden' }}>
+      <body className="overflow-auto lg:overflow-hidden" style={{ margin: 0, padding: 0 }}>
         {/* Fixed Header */}
         <Header />
 
@@ -24,12 +24,12 @@ export default function RootLayout({
 
         {/* Main Content Area */}
         <main
+          className="overflow-y-auto lg:overflow-clip"
           style={{
             marginLeft: 'var(--sidebar-width)',
             marginRight: 'var(--sidebar-width)',
-            marginTop: 'var(--header-height)',
-            height: 'calc(100vh - var(--header-height))',
-            overflow: 'clip',
+            marginTop: 'var(--header-total-height)',
+            height: 'calc(100vh - var(--header-total-height))',
             background: 'var(--cream)',
           }}
         >

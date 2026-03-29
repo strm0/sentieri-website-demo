@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import AnimatedUnderline from '@/components/ui/AnimatedUnderline'
+import { useCanHover } from '@/lib/useCanHover'
 import { Article } from '@/lib/types'
 
 interface ArticleListProps {
@@ -12,6 +13,7 @@ interface ArticleListProps {
 
 function ArticleRow({ article }: { article: Article }) {
   const [isHovered, setIsHovered] = useState(false)
+  const canHover = useCanHover()
   const year = new Date(article.publishDate).getFullYear()
 
   return (
@@ -19,8 +21,8 @@ function ArticleRow({ article }: { article: Article }) {
       href={`/articles/${article.slug}`}
       className="block"
       style={{ textDecoration: 'none' }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={canHover ? () => setIsHovered(true) : undefined}
+      onMouseLeave={canHover ? () => setIsHovered(false) : undefined}
     >
       <div
         style={{

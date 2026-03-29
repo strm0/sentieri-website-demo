@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import AnimatedUnderline from '@/components/ui/AnimatedUnderline'
+import { useCanHover } from '@/lib/useCanHover'
 
 interface ArticleCardProps {
   title: string
@@ -21,14 +22,15 @@ export default function ArticleCard({
   entity,
 }: ArticleCardProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const canHover = useCanHover()
 
   return (
     <Link
       href={`/articles/${slug}`}
       className="block cursor-pointer"
       style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={canHover ? () => setIsHovered(true) : undefined}
+      onMouseLeave={canHover ? () => setIsHovered(false) : undefined}
     >
       {/* Card Container - Square aspect ratio, centered with padding */}
       <div

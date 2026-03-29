@@ -28,6 +28,9 @@ export default function Header() {
           position: 'absolute',
           left: '50%',
           transform: 'translateX(-50%)',
+          minHeight: '44px',
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
        <span style={{

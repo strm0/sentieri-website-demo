@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useCanHover } from '@/lib/useCanHover'
 
 interface AnimatedUnderlineProps {
   children: React.ReactNode
@@ -16,9 +17,10 @@ export default function AnimatedUnderline({
   lineHeight = 2,
 }: AnimatedUnderlineProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const canHover = useCanHover()
 
   const isControlled = active !== undefined
-  const showUnderline = isControlled ? active : isHovered
+  const showUnderline = isControlled ? active : (canHover && isHovered)
 
   return (
     <div
@@ -26,8 +28,8 @@ export default function AnimatedUnderline({
         position: 'relative',
         display: 'inline-block',
       }}
-      onMouseEnter={isControlled ? undefined : () => setIsHovered(true)}
-      onMouseLeave={isControlled ? undefined : () => setIsHovered(false)}
+      onMouseEnter={isControlled || !canHover ? undefined : () => setIsHovered(true)}
+      onMouseLeave={isControlled || !canHover ? undefined : () => setIsHovered(false)}
     >
       {children}
       <div
