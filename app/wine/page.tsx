@@ -62,7 +62,6 @@ export default function WinePage() {
     </>
   );
 
-  // Placeholder images for wine page
   const images = [
     {
       url: '/images/wine/wine-1.jpg',
@@ -76,15 +75,6 @@ export default function WinePage() {
       url: '/images/wine/wine-3.jpg',
       alt: 'Vineyard landscape in Loreto Aprutino',
     },
-    {
-      url: '/images/wine/wine-4.jpg',
-      alt: 'Hand-harvesting grapes',
-    },
-    {
-      url: '/images/wine/wine-5.jpg',
-      alt: 'Hand-harvesting grapes',
-    },
-    
   ];
 
   return (

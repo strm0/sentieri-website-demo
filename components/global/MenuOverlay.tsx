@@ -26,7 +26,7 @@ const leftMenuItems: MenuItem[] = [
 // Right menu (Associazione Culturale)
 const rightMenuItems: MenuItem[] = [
   { label: 'Residencies', href: '/residencies' },
-  { label: 'Archive', href: '/research-archive' },
+  { label: 'Archive', href: '/archive' },
   { label: 'About us', href: '/about' },
 ]
 

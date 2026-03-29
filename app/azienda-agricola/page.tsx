@@ -24,10 +24,10 @@ const sampleArticles = [
     title: 'The Pace of Olives',
     slug: 'the-pace-of-olives',
     publishDate: '2025-01-01',
-    featuredImage: '/images/articles/the-pace-of-olives/the-pace-of-olives-1.jpg',
+    featuredImage: '/images/articles/the-pace-of-olives/the-pace-of-olives-4.jpg',
     entity: 'stelle' as const,
     author: 'Jack Laing Aiken',
-    imagePosition: 'center 40%',
+    imagePosition: 'center 60%',
   },
 ]
 

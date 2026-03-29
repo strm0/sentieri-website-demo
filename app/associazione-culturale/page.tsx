@@ -6,18 +6,19 @@ const sampleArticles = [
     title: 'A Walk from Elsewhere',
     slug: 'a-walk-from-elsewhere',
     publishDate: '2025-01-15',
-    featuredImage: '/images/articles/a-walk-from-elsewhere/Walk_with_image-5.jpg',
+    featuredImage: '/images/articles/a-walk-from-elsewhere/a-walk-from-elsewhere-3.jpg',
     entity: 'sogni' as const,
     author: 'Giulia Morlando',
+    imagePosition: 'center 80%',
   },
   {
     title: 'A Case for Fertile Grounds',
     slug: 'a-case-for-fertile-grounds',
     publishDate: '2025-02-01',
-    featuredImage: '/images/articles/a-case-for-fertile-ground/a_case_for_fertile_ground-2.jpg',
+    featuredImage: '/images/articles/a-case-for-fertile-grounds/a-case-for-fertile-grounds-2.jpg',
     entity: 'sogni' as const,
     author: 'Rebecca Douglass',
-    imagePosition: 'center 15%',
+    imagePosition: 'center 75%',
   },
   {
     title: 'The Dining Table',
@@ -26,6 +27,7 @@ const sampleArticles = [
     featuredImage: '/images/articles/the-dining-table/the-dining-table-1.jpg',
     entity: 'sogni' as const,
     author: 'Rebecca Douglass',
+    imagePosition: 'center 75%',
   },
 ]
 

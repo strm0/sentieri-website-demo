@@ -35,7 +35,7 @@ export default function LandingPageTemplate({
 
   const culturaleLinks = [
     { href: '/residencies', label: 'Residencies' },
-    { href: '/research-archive', label: 'Archive' },
+    { href: '/archive', label: 'Archive' },
     { href: '/about', label: 'About us' },
   ]
 
@@ -259,7 +259,7 @@ export default function LandingPageTemplate({
               </div>
 
               <CardNavLink href="/residencies" label="Residencies" visible={hoveredCard === 'culturale'} style={{ right: '30px', top: '50%', transform: 'translateY(-50%)' }} />
-              <CardNavLink href="/research-archive" label="Archive" visible={hoveredCard === 'culturale'} style={{ left: '30px', bottom: '40px' }} />
+              <CardNavLink href="/archive" label="Archive" visible={hoveredCard === 'culturale'} style={{ left: '30px', bottom: '40px' }} />
               <CardNavLink href="/about" label="About us" visible={hoveredCard === 'culturale'} style={{ right: '30px', bottom: '40px' }} />
             </div>
           </section>

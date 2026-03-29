@@ -182,6 +182,16 @@ export default function ContentPageTemplate({
           paddingBottom: '40px',
         }}
       >
+        {/* Audio player - fixed at top on mobile */}
+        {audioSrc && (
+          <div style={{ position: 'fixed', top: 'calc(var(--header-height) + var(--sidebar-bar-height, 0px))', left: 0, right: 0, zIndex: 20, paddingRight: '16px' }}>
+            <AudioPlayer src={audioSrc} title={title} />
+          </div>
+        )}
+
+        {/* Spacer for fixed audio player */}
+        {audioSrc && <div style={{ height: '46px' }} />}
+
         {/* Title */}
         <div style={{ padding: '24px 16px 0' }}>
           <h1
@@ -239,13 +249,6 @@ export default function ContentPageTemplate({
             }
           })}
         </div>
-
-        {/* Audio player */}
-        {audioSrc && (
-          <div style={{ position: 'sticky', bottom: 0 }}>
-            <AudioPlayer src={audioSrc} title={title} />
-          </div>
-        )}
       </div>
     </>
   );
@@ -368,51 +371,6 @@ function LegacyLayout({
     </div>
   );
 
-  const firstImage = images.length > 0 ? images[0] : null;
-  const distributeImages = images.slice(1);
-
-  function renderMobileImage(image: { url: string; alt: string }, key: string) {
-    return (
-      <div key={key} style={{ width: '100%', position: 'relative', margin: '20px 0' }}>
-        <Image
-          src={image.url}
-          alt={image.alt}
-          width={1200}
-          height={800}
-          sizes="100vw"
-          style={{ width: '100%', height: 'auto', display: 'block' }}
-          unoptimized
-        />
-      </div>
-    );
-  }
-
-  const MIN_GAP = 6;
-  const contentChildren = React.Children.toArray(content);
-  const interleaved: React.ReactNode[] = [];
-  let imageIndex = 0;
-  let sinceLastImage = MIN_GAP;
-
-  contentChildren.forEach((child, i) => {
-    interleaved.push(
-      <div key={`text-${i}`} style={{ padding: '0 16px' }}>
-        {child}
-      </div>
-    );
-    sinceLastImage++;
-
-    if (sinceLastImage >= MIN_GAP && imageIndex < distributeImages.length) {
-      interleaved.push(renderMobileImage(distributeImages[imageIndex], `mid-${imageIndex}`));
-      imageIndex++;
-      sinceLastImage = 0;
-    }
-  });
-
-  while (imageIndex < distributeImages.length) {
-    interleaved.push(renderMobileImage(distributeImages[imageIndex], `end-${imageIndex}`));
-    imageIndex++;
-  }
-
   return (
     <>
       <div
@@ -444,6 +402,16 @@ function LegacyLayout({
           paddingBottom: '40px',
         }}
       >
+        {/* Audio player - fixed at top on mobile */}
+        {audioSrc && (
+          <div style={{ position: 'fixed', top: 'calc(var(--header-height) + var(--sidebar-bar-height, 0px))', left: 0, right: 0, zIndex: 20, paddingRight: '16px' }}>
+            <AudioPlayer src={audioSrc} title={title} />
+          </div>
+        )}
+
+        {/* Spacer for fixed audio player */}
+        {audioSrc && <div style={{ height: '46px' }} />}
+
         <div style={{ padding: '24px 16px 0' }}>
           <h1
             className="heading-xl"
@@ -456,24 +424,6 @@ function LegacyLayout({
             {title}
           </h1>
         </div>
-
-        {firstImage && (
-          <div style={{ width: '100%', position: 'relative' }}>
-            <Image
-              src={firstImage.url}
-              alt={firstImage.alt}
-              width={1200}
-              height={800}
-              sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-                display: 'block',
-              }}
-              unoptimized
-            />
-          </div>
-        )}
 
         {quote && (
           <div
@@ -491,15 +441,25 @@ function LegacyLayout({
           </div>
         )}
 
-        <div className="body-text" style={{ fontFamily: 'var(--font-body)', letterSpacing: 0 }}>
-          {interleaved}
+        {/* All text first */}
+        <div className="body-text" style={{ fontFamily: 'var(--font-body)', letterSpacing: 0, padding: '0 16px' }}>
+          {content}
         </div>
 
-        {audioSrc && (
-          <div style={{ position: 'sticky', bottom: 0 }}>
-            <AudioPlayer src={audioSrc} title={title} />
+        {/* All images after */}
+        {images.map((image, index) => (
+          <div key={`img-${index}`} style={{ width: '100%', position: 'relative', marginTop: '20px' }}>
+            <Image
+              src={image.url}
+              alt={image.alt}
+              width={1200}
+              height={800}
+              sizes="100vw"
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+              unoptimized
+            />
           </div>
-        )}
+        ))}
       </div>
     </>
   );

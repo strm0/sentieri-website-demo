@@ -29,23 +29,26 @@ export default function OliveOilPage() {
     </>
   );
 
-  // Placeholder images (using Unsplash for now)
   const images = [
     {
-      url: '/images/oliveOil/oliveOil-1.jpg',
+      url: '/images/oliveOil/olive-oil-1.jpg',
       alt: 'Olive branches with green olives',
     },
     {
-      url: '/images/oliveOil/oliveOil-2.jpg',
+      url: '/images/oliveOil/olive-oil-2.jpg',
       alt: 'Olive oil bottle in olive grove',
     },
     {
-      url: '/images/oliveOil/oliveOil-3.jpg',
+      url: '/images/oliveOil/olive-oil-3.jpg',
       alt: 'Close-up of olives on tree',
     },
     {
-      url: '/images/oliveOil/oliveOil-4.jpg',
+      url: '/images/oliveOil/olive-oil-4.jpg',
       alt: 'Traditional olive oil pressing',
+    },
+    {
+      url: '/images/oliveOil/olive-oil-5.jpg',
+      alt: 'Olive oil production',
     },
   ];
 
