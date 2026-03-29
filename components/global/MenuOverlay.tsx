@@ -109,7 +109,7 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
             style={{
               textDecoration: 'none',
               display: 'block',
-              textAlign: 'left',
+              textAlign: isLeft ? 'left' : 'right',
             }}
           >
             <h2
@@ -133,7 +133,7 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
           {/* Nav links — desktop: absolutely positioned, mobile: vertical stack */}
           <nav>
             {/* Desktop layout (>= 1024px) — absolute positioning */}
-            <div className="hidden lg:block">
+            <div>
               {isLeft ? (
                 <>
                   {/* Wine — mid-left */}
@@ -203,20 +203,6 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
               )}
             </div>
 
-            {/* Mobile layout (< 1024px) — vertical stack */}
-            <div className="flex flex-col gap-4 mt-8 lg:hidden">
-              {menuItems.map((item) => (
-                <div key={item.href} style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}>
-                  <MenuLink
-                    item={item}
-                    hoveredItem={hoveredItem}
-                    setHoveredItem={setHoveredItem}
-                    onClose={onClose}
-                    canHover={canHover}
-                  />
-                </div>
-              ))}
-            </div>
           </nav>
         </div>
       </div>
