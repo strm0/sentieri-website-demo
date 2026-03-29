@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/global/Header";
 import SidebarsContainer from "@/components/global/SidebarsContainer";
+import ScrollToTop from "@/components/global/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "Sentieri - Farm & Cultural Hub",
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="overflow-auto lg:overflow-hidden" style={{ margin: 0, padding: 0 }}>
+        <ScrollToTop />
         {/* Fixed Header */}
         <Header />
 
