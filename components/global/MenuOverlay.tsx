@@ -97,6 +97,30 @@ export default function MenuOverlay({ isOpen, side, onClose }: MenuOverlayProps)
             paddingBottom: '40px',
           }}
         >
+          {/* Close button — mobile only */}
+          <button
+            className="lg:hidden"
+            onClick={onClose}
+            style={{
+              position: 'absolute',
+              top: '44px',
+              ...(isLeft
+                ? { right: 'calc(var(--sidebar-width) + 18px)' }
+                : { left: 'calc(var(--sidebar-width) + 18px)' }),
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+              fontSize: 'clamp(1.2rem, 4vw, 1.8rem)',
+              color: '#000000',
+              fontFamily: 'var(--font-body)',
+              lineHeight: 1,
+            }}
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+
           {/* Main Heading — top area */}
           <Link
             href={headingHref}

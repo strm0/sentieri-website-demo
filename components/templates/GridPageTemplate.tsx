@@ -135,9 +135,6 @@ export default function GridPageTemplate({
           <div>
             {featuredArticles.map((article, index) => (
               <div key={article.slug}>
-                {/* Divider */}
-                <div style={{ width: '100%', height: '1px', background: '#000000' }} />
-
                 <Link
                   href={`/articles/${article.slug}`}
                   style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import AnimatedUnderline from '@/components/ui/AnimatedUnderline'
 
 interface EntityCard {
@@ -27,17 +27,9 @@ export default function LandingPageTemplate({
   const contentHeight = 'calc(100vh - var(--header-height))'
   const mobileContentHeight = 'calc(100svh - var(--header-total-height))'
 
-  const agricolaLinks = [
-    { href: '/wine', label: 'Wine' },
-    { href: '/olive-oil', label: 'Olive Oil' },
-    { href: '/shop', label: 'Shop' },
-  ]
-
-  const culturaleLinks = [
-    { href: '/residencies', label: 'Residencies' },
-    { href: '/archive', label: 'Archive' },
-    { href: '/about', label: 'About us' },
-  ]
+  const openSidebar = useCallback((side: 'left' | 'right') => {
+    window.dispatchEvent(new CustomEvent('sentieri-open-sidebar', { detail: side }))
+  }, [])
 
   return (
     <>
@@ -366,119 +358,93 @@ export default function LandingPageTemplate({
             height: mobileContentHeight,
             minHeight: mobileContentHeight,
             scrollSnapAlign: 'start',
-            display: 'flex',
+            flexDirection: 'column',
             background: '#FFFFFF',
           }}
         >
-          <MobileEntityCard
-            title={agricolaCard.title}
-            titleHref={agricolaCard.href}
-            description={agricolaCard.description}
-            links={agricolaLinks}
-          />
-          {/* Vertical divider */}
-          <div style={{ width: '1px', background: '#000000', flexShrink: 0 }} />
-          <MobileEntityCard
-            title={culturaleCard.title}
-            titleHref={culturaleCard.href}
-            description={culturaleCard.description}
-            links={culturaleLinks}
-          />
+          {/* Top block — Azienda Agricola */}
+          <div
+            onClick={() => openSidebar('left')}
+            style={{
+              width: '100%',
+              height: '50%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              paddingLeft: '24px',
+              paddingRight: '24px',
+              cursor: 'pointer',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(2.5rem, 8vw, 8.5rem)',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.2,
+                margin: 0,
+              }}
+            >
+              {agricolaCard.title}
+            </span>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(0.85rem, 2.5vw, 1rem)',
+                lineHeight: 1.5,
+                marginTop: '12px',
+                textAlign: 'left',
+                margin: '12px 0 0',
+              }}
+            >
+              {agricolaCard.description}
+            </p>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '1.5rem', marginTop: '12px' }}>←</span>
+          </div>
+
+          {/* Bottom block — Associazione Culturale */}
+          <div
+            onClick={() => openSidebar('right')}
+            style={{
+              width: '100%',
+              height: '50%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'flex-end',
+              paddingLeft: '24px',
+              paddingRight: '24px',
+              cursor: 'pointer',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(2.5rem, 8vw, 8.5rem)',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.2,
+                margin: 0,
+                textAlign: 'right',
+              }}
+            >
+              {culturaleCard.title}
+            </span>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(0.85rem, 2.5vw, 1rem)',
+                lineHeight: 1.5,
+                textAlign: 'right',
+                margin: '12px 0 0',
+              }}
+            >
+              {culturaleCard.description}
+            </p>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '1.5rem', marginTop: '12px' }}>→</span>
+          </div>
         </section>
       </div>
     </>
-  )
-}
-
-function MobileEntityCard({
-  title,
-  titleHref,
-  description,
-  links,
-}: {
-  title: string
-  titleHref: string
-  description: string
-  links: { href: string; label: string }[]
-}) {
-  return (
-    <div
-      style={{
-        width: '50%',
-        height: '100%',
-        background: '#FFFFFF',
-        padding: '40px 24px',
-        display: 'flex',
-        flexDirection: 'column',
-        overflowY: 'auto',
-      }}
-    >
-      {/* Title — matches MobileSidebarBar font styling */}
-      <Link href={titleHref} style={{ textDecoration: 'none', color: '#000000' }}>
-        <AnimatedUnderline>
-          <h2
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '1.2rem',
-              letterSpacing: '-0.07em',
-              lineHeight: '1.2',
-              margin: 0,
-            }}
-          >
-            {title}
-          </h2>
-        </AnimatedUnderline>
-      </Link>
-
-      {/* Description */}
-      <p
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.8rem, 2.5vw, 1rem)',
-          lineHeight: '1.4',
-          margin: 0,
-          marginTop: '16px',
-        }}
-      >
-        {description}
-      </p>
-
-      {/* Nav links */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0px',
-          marginTop: '20px',
-        }}
-      >
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            style={{
-              textDecoration: 'none',
-              color: '#000000',
-              minHeight: '44px',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <AnimatedUnderline>
-              <span
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '1rem',
-                  lineHeight: '1.4',
-                }}
-              >
-                {link.label}
-              </span>
-            </AnimatedUnderline>
-          </Link>
-        ))}
-      </div>
-    </div>
   )
 }
 

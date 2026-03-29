@@ -130,7 +130,7 @@ export default function ArticleList({ articles }: ArticleListProps) {
           <ArticleRow article={article} />
 
           {/* Bottom divider */}
-          <div style={{ width: '100%', height: '1px', background: '#000000' }} />
+          <div className="hidden lg:block" style={{ width: '100%', height: '1px', background: '#000000' }} />
         </div>
       ))}
     </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MenuOverlay from './MenuOverlay';
 import MobileSidebarBar from './MobileSidebarBar';
 import AnimatedUnderline from '@/components/ui/AnimatedUnderline';
@@ -11,6 +11,15 @@ export default function SidebarsContainer() {
   const [leftHovered, setLeftHovered] = useState(false);
   const [rightHovered, setRightHovered] = useState(false);
   const canHover = useCanHover();
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<'left' | 'right'>).detail;
+      setOpenSide(detail);
+    };
+    window.addEventListener('sentieri-open-sidebar', handler);
+    return () => window.removeEventListener('sentieri-open-sidebar', handler);
+  }, []);
 
   const handleToggle = (side: 'left' | 'right') => {
     if (openSide === side) {
