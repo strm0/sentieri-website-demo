@@ -1,8 +1,7 @@
 'use client'
 
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import AnimatedUnderline from '@/components/ui/AnimatedUnderline'
 
 interface EntityCard {
@@ -12,13 +11,115 @@ interface EntityCard {
 }
 
 interface LandingPageTemplateProps {
-  heroImage?: string
   agricolaCard: EntityCard
   culturaleCard: EntityCard
 }
 
+function HeroSection({ height, objectPosition = 'center 30%' }: { height: string; objectPosition?: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const [soundOn, setSoundOn] = useState(false)
+
+  const toggleSound = useCallback(() => {
+    const video = videoRef.current
+    const audio = audioRef.current
+    if (!audio || !video) return
+    if (soundOn) {
+      audio.pause()
+      setSoundOn(false)
+    } else {
+      audio.volume = 0.2
+      audio.currentTime = video.currentTime % (audio.duration || video.currentTime + 1)
+      audio.play().catch(() => {})
+      setSoundOn(true)
+    }
+  }, [soundOn])
+
+  return (
+    <section
+      style={{
+        width: '100%',
+        height,
+        minHeight: height,
+        scrollSnapAlign: 'start',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <video
+        ref={videoRef}
+        src="/video/landing_page.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition,
+        }}
+      />
+      <audio ref={audioRef} src="/audio/landing_page.mp3" loop preload="auto" />
+
+      {/* Sound toggle */}
+      <button
+        onClick={toggleSound}
+        aria-label={soundOn ? 'Turn sound off' : 'Turn sound on'}
+        style={{
+          position: 'absolute',
+          bottom: '24px',
+          left: '24px',
+          zIndex: 2,
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          padding: 0,
+          width: '24px',
+          height: '24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {soundOn ? (
+          <svg width="22" height="20" viewBox="0 0 22 20" fill="none">
+            <polygon points="0,6 5,6 10,1 10,19 5,14 0,14" fill="#000000" />
+            <path d="M14 5 Q17 10 14 15" stroke="#000000" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+            <path d="M17 2 Q22 10 17 18" stroke="#000000" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          </svg>
+        ) : (
+          <svg width="22" height="20" viewBox="0 0 22 20" fill="none">
+            <polygon points="0,6 5,6 10,1 10,19 5,14 0,14" fill="#000000" />
+            <line x1="13" y1="5" x2="21" y2="15" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="21" y1="5" x2="13" y2="15" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        )}
+      </button>
+
+      {/* Scroll indicator */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '24px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          color: '#000000',
+          fontFamily: 'var(--font-body)',
+          fontSize: '2.5rem',
+          animation: 'bounce-gentle 2s ease-in-out infinite',
+        }}
+      >
+        ↓
+      </div>
+    </section>
+  )
+}
+
 export default function LandingPageTemplate({
-  heroImage = '/images/articles/our-way-here/our-way-here-5.jpg',
   agricolaCard,
   culturaleCard,
 }: LandingPageTemplateProps) {
@@ -45,45 +146,7 @@ export default function LandingPageTemplate({
       >
         <div className="no-scrollbar" style={{ width: '100%', height: '100%', overflowY: 'auto', scrollSnapType: 'y mandatory' }}>
           {/* SECTION 1 — Hero */}
-          <section
-            style={{
-              width: '100%',
-              height: contentHeight,
-              minHeight: contentHeight,
-              scrollSnapAlign: 'start',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            <Image
-              src={heroImage}
-              alt="Sentieri landscape"
-              fill
-              style={{
-                objectFit: 'cover',
-                objectPosition: 'center 30%',
-                filter: 'grayscale(100%)',
-              }}
-              priority
-              unoptimized
-            />
-
-            {/* Scroll indicator */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '24px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                color: '#000000',
-                fontFamily: 'var(--font-body)',
-                fontSize: '2.5rem',
-                animation: 'bounce-gentle 2s ease-in-out infinite',
-              }}
-            >
-              ↓
-            </div>
-          </section>
+          <HeroSection height={contentHeight} />
 
           {/* SECTION 2 — Entity selection */}
           <section
@@ -201,45 +264,7 @@ export default function LandingPageTemplate({
         }}
       >
         {/* SECTION 1 — Hero */}
-        <section
-          style={{
-            width: '100%',
-            height: mobileContentHeight,
-            minHeight: mobileContentHeight,
-            scrollSnapAlign: 'start',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          <Image
-            src={heroImage}
-            alt="Sentieri landscape"
-            fill
-            style={{
-              objectFit: 'cover',
-              objectPosition: 'center 30%',
-              filter: 'grayscale(100%)',
-            }}
-            priority
-            unoptimized
-          />
-
-          {/* Scroll indicator */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '24px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              color: '#000000',
-              fontFamily: 'var(--font-body)',
-              fontSize: '2.5rem',
-              animation: 'bounce-gentle 2s ease-in-out infinite',
-            }}
-          >
-            ↓
-          </div>
-        </section>
+        <HeroSection height={mobileContentHeight} objectPosition="20% 30%" />
 
         {/* SECTION 2 — Entity cards (side by side) */}
         <section
