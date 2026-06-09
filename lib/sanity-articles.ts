@@ -66,12 +66,9 @@ export async function getSanityArticleBySlug(
     ARTICLE_BY_SLUG_QUERY,
     { slug },
     {
-      // DEV ONLY: include drafts so unpublished content renders while editing.
-      // Reading drafts also requires a Sanity read token on the client; without
-      // one, only published documents are returned.
-      // TIGHTEN BEFORE PRODUCTION: switch perspective to 'published'.
-      perspective: 'drafts',
-      useCdn: false,
+      // The front end only ever serves published content; the CDN is safe here.
+      perspective: 'published',
+      useCdn: true,
     }
   )
 }
