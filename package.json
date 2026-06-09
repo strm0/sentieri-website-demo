@@ -22,14 +22,20 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
+    "@sanity/block-tools": "^3.70.0",
     "@sanity/cli": "^4.21.0",
+    "@sanity/schema": "^5.30.0",
     "@tailwindcss/postcss": "^4",
+    "@types/jsdom": "^28.0.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.0.8",
+    "jsdom": "^29.1.1",
     "tailwindcss": "^4",
+    "tsx": "^4.22.4",
     "typescript": "^5"
   }
 }
