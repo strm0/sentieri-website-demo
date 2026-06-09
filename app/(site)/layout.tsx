@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import Header from "@/components/global/Header";
 import SidebarsContainer from "@/components/global/SidebarsContainer";
 import ScrollToTop from "@/components/global/ScrollToTop";

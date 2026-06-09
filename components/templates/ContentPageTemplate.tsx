@@ -46,6 +46,11 @@ export default function ContentPageTemplate({
   const textBlocks = blocks.filter((b): b is ContentBlock & { type: 'text' } => b.type === 'text');
   const imageBlocks = blocks.filter((b): b is ContentBlock & { type: 'image' } => b.type === 'image');
 
+  // Gap (px) applied after an image based on its optional `spacing` field.
+  // Falls back to the existing defaults (35 desktop / 20 mobile) when unset, so
+  // pages that don't set spacing render exactly as before.
+  const IMAGE_GAP = { compact: 16, normal: 35, spacious: 64 } as const;
+
   const textPane = (
     <div
       className="text-pane no-scrollbar"
@@ -123,7 +128,10 @@ export default function ContentPageTemplate({
             style={{
               position: 'relative',
               width: '100%',
-              marginBottom: index < imageBlocks.length - 1 ? '35px' : '0',
+              marginBottom:
+                index < imageBlocks.length - 1
+                  ? `${image.spacing ? IMAGE_GAP[image.spacing] : 35}px`
+                  : '0',
             }}
           >
             <Image
@@ -139,6 +147,19 @@ export default function ContentPageTemplate({
               }}
               unoptimized
             />
+            {image.caption && (
+              <figcaption
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  lineHeight: '20px',
+                  color: '#000000',
+                  padding: '8px 18px 0',
+                }}
+              >
+                {image.caption}
+              </figcaption>
+            )}
           </div>
         ))}
       </div>
@@ -234,7 +255,14 @@ export default function ContentPageTemplate({
               );
             } else {
               return (
-                <div key={`block-${index}`} style={{ width: '100%', position: 'relative', margin: '20px 0' }}>
+                <div
+                  key={`block-${index}`}
+                  style={{
+                    width: '100%',
+                    position: 'relative',
+                    margin: `${block.spacing ? IMAGE_GAP[block.spacing] : 20}px 0`,
+                  }}
+                >
                   <Image
                     src={block.url}
                     alt={block.alt}
@@ -244,6 +272,19 @@ export default function ContentPageTemplate({
                     style={{ width: '100%', height: 'auto', display: 'block' }}
                     unoptimized
                   />
+                  {block.caption && (
+                    <figcaption
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        color: '#000000',
+                        padding: '8px 16px 0',
+                      }}
+                    >
+                      {block.caption}
+                    </figcaption>
+                  )}
                 </div>
               );
             }

@@ -13,4 +13,10 @@ export interface Article {
 
 export type ContentBlock =
   | { type: 'text'; content: React.ReactNode }
-  | { type: 'image'; url: string; alt: string }
+  | {
+      type: 'image'
+      url: string
+      alt: string
+      caption?: string
+      spacing?: 'compact' | 'normal' | 'spacious'
+    }

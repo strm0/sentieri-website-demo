@@ -1,5 +1,14 @@
 import ContentPageTemplate from '@/components/templates/ContentPageTemplate'
+import SanityBlockText from '@/components/article/SanityBlockText'
 import { getArticleBySlug, getEntityBySlug } from '@/lib/articles'
+import {
+  getSanityArticleBySlug,
+  type SanityArticle,
+  type SanityImageBlock,
+} from '@/lib/sanity-articles'
+import { urlFor } from '@/sanity/lib/image'
+import type { ContentBlock } from '@/lib/types'
+import type { PortableTextBlock } from '@portabletext/types'
 
 function formatSlug(slug: string): string {
   return slug
@@ -8,12 +17,56 @@ function formatSlug(slug: string): string {
     .join(' ')
 }
 
+/**
+ * Transform a Sanity Article `body` into the template's ContentBlock[] shape.
+ * Order is preserved (it is the intended mobile order); ContentPageTemplate
+ * splits text vs. image members across the two panes on desktop.
+ */
+function toContentBlocks(article: SanityArticle): ContentBlock[] {
+  return (article.body ?? []).map((item): ContentBlock => {
+    if (item._type === 'image') {
+      const image = item as SanityImageBlock
+      const url = image.asset
+        ? urlFor(image).width(1600).url()
+        : image.url ?? ''
+      return {
+        type: 'image',
+        url,
+        alt: image.alt ?? '',
+        caption: image.caption,
+        spacing: image.spacing,
+      }
+    }
+
+    return {
+      type: 'text',
+      content: <SanityBlockText block={item as PortableTextBlock} />,
+    }
+  })
+}
+
 export default async function ArticlePage({
   params,
 }: {
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+
+  // 1. Prefer content from Sanity.
+  const sanityArticle = await getSanityArticleBySlug(slug)
+
+  if (sanityArticle) {
+    return (
+      <ContentPageTemplate
+        title={sanityArticle.title}
+        blocks={toContentBlocks(sanityArticle)}
+        mirrored={sanityArticle.entity === 'sogni'}
+        audioSrc={sanityArticle.audioUrl}
+      />
+    )
+  }
+
+  // 2. Fallback: hardcoded data in lib/articles (to be migrated to Sanity later).
   const article = getArticleBySlug(slug)
 
   if (article) {
@@ -29,7 +82,7 @@ export default async function ArticlePage({
     )
   }
 
-  // Fallback for articles not yet in the data file
+  // 3. Final fallback for slugs not found in either source.
   const title = formatSlug(slug)
 
   const content = (
