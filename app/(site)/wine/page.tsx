@@ -1,7 +1,25 @@
 import ContentPageTemplate from '@/components/templates/ContentPageTemplate';
+import { getSanityWinePage, pageBodyToContentBlocks } from '@/lib/sanity-pages';
 
-export default function WinePage() {
+// ISR: revalidate published Sanity content every 60s so edits appear in production.
+export const revalidate = 60;
 
+export default async function WinePage() {
+  // 1. Prefer content from Sanity (the winePage singleton).
+  const page = await getSanityWinePage();
+
+  if (page) {
+    return (
+      <ContentPageTemplate
+        title={page.title}
+        subtitle={page.subtitle}
+        blocks={pageBodyToContentBlocks(page.body)}
+      />
+    );
+  }
+
+  // 2. Fallback: the original hardcoded Wine content, kept inline so any Sanity
+  //    hiccup leaves the page rendering exactly as it did before the migration.
   const content = (
     <>
       <p>

@@ -2,11 +2,18 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { Geist_Mono } from 'next/font/google';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import { ContentBlock } from '@/lib/types';
 
+// Geist Mono is used (per design) for the singleton subtitle tagline, mirroring
+// the article subheader treatment in SanityBlockText.tsx. Scoped here so the
+// rest of the site keeps using Noi Grotesk.
+const geistMono = Geist_Mono({ subsets: ['latin'], weight: ['400'], display: 'swap' });
+
 interface ContentPageTemplateProps {
   title: string;
+  subtitle?: string;
   blocks?: ContentBlock[];
   /** @deprecated Use blocks instead */
   content?: React.ReactNode;
@@ -19,6 +26,7 @@ interface ContentPageTemplateProps {
 
 export default function ContentPageTemplate({
   title,
+  subtitle,
   blocks,
   content,
   images,
@@ -67,7 +75,26 @@ export default function ContentPageTemplate({
       }}
     >
       {/* Page Title */}
-      <h1 className="heading-xl" style={{ fontSize: 'clamp(3rem, 5.5vw, 7.5rem)', textAlign: mirrored ? 'left' : 'right', marginBottom: '160px', paddingRight: mirrored ? undefined : '20px', paddingLeft: mirrored ? '12px' : undefined }}>{title}</h1>
+      <h1 className="heading-xl" style={{ fontSize: 'clamp(3rem, 5.5vw, 7.5rem)', textAlign: mirrored ? 'left' : 'right', marginBottom: subtitle ? '0' : '160px', paddingRight: mirrored ? undefined : '20px', paddingLeft: mirrored ? '12px' : undefined }}>{title}</h1>
+
+      {/* Subtitle tagline (Geist Mono), tucked under the title */}
+      {subtitle && (
+        <p
+          style={{
+            fontFamily: geistMono.style.fontFamily,
+            fontSize: '0.9rem',
+            lineHeight: 1.4,
+            textAlign: mirrored ? 'left' : 'right',
+            marginTop: '18px',
+            marginBottom: '120px',
+            paddingRight: mirrored ? undefined : '20px',
+            paddingLeft: mirrored ? '12px' : undefined,
+            opacity: 0.8,
+          }}
+        >
+          {subtitle}
+        </p>
+      )}
 
       {/* Text content */}
       <div
@@ -220,11 +247,26 @@ export default function ContentPageTemplate({
             style={{
               fontSize: 'clamp(2rem, 8vw, 3.5rem)',
               textAlign: 'left',
-              marginBottom: '60px',
+              marginBottom: subtitle ? '0' : '60px',
             }}
           >
             {title}
           </h1>
+          {subtitle && (
+            <p
+              style={{
+                fontFamily: geistMono.style.fontFamily,
+                fontSize: '0.9rem',
+                lineHeight: 1.4,
+                textAlign: 'left',
+                marginTop: '12px',
+                marginBottom: '40px',
+                opacity: 0.8,
+              }}
+            >
+              {subtitle}
+            </p>
+          )}
         </div>
 
         {/* Quote (mobile: styled blockquote before body) */}

@@ -10,6 +10,9 @@ import { urlFor } from '@/sanity/lib/image'
 import type { ContentBlock } from '@/lib/types'
 import type { PortableTextBlock } from '@portabletext/types'
 
+// ISR: revalidate published Sanity content every 60s so edits appear in production.
+export const revalidate = 60
+
 function formatSlug(slug: string): string {
   return slug
     .split('-')
