@@ -1,7 +1,25 @@
 import ContentPageTemplate from '@/components/templates/ContentPageTemplate';
+import { getSanitySingletonPage, pageBodyToContentBlocks } from '@/lib/sanity-pages';
 
-export default function OliveOilPage() {
-  // Content from the design reference
+// ISR: revalidate published Sanity content every 60s so edits appear in production.
+export const revalidate = 60;
+
+export default async function OliveOilPage() {
+  // 1. Prefer content from Sanity (the oliveOilPage singleton).
+  const page = await getSanitySingletonPage('oliveOilPage');
+
+  if (page) {
+    return (
+      <ContentPageTemplate
+        title={page.title}
+        subtitle={page.subtitle}
+        blocks={pageBodyToContentBlocks(page.body)}
+      />
+    );
+  }
+
+  // 2. Fallback: the original hardcoded Olive Oil content, kept inline so any
+  //    Sanity hiccup leaves the page rendering exactly as it did before.
   const content = (
     <>
       <p>

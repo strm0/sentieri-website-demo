@@ -54,6 +54,40 @@ export async function getSanityWinePage(): Promise<SanityWinePage | null> {
 }
 
 /**
+ * A generic Sanity-backed singleton page, keyed by its document type. Same shape
+ * as `SanityWinePage`; used by Olive Oil and (next) Residencies / About.
+ */
+export interface SanitySingletonPage {
+  _id: string
+  title: string
+  subtitle?: string
+  body?: SanityBodyItem[]
+}
+
+/**
+ * Fetch the single document of a given singleton type (e.g. 'oliveOilPage').
+ * The body array preserves its authored order (the intended mobile order); body
+ * images also keep their `asset` reference so urlFor() can apply transforms.
+ */
+export async function getSanitySingletonPage(
+  type: string
+): Promise<SanitySingletonPage | null> {
+  const query = /* groq */ `*[_type == $type][0]{
+    _id, title, subtitle,
+    body[]{ ..., _type == "image" => { ..., "url": asset->url } }
+  }`
+  return client.fetch<SanitySingletonPage | null>(
+    query,
+    { type },
+    {
+      // The front end only ever serves published content; the CDN is safe here.
+      perspective: 'published',
+      useCdn: true,
+    }
+  )
+}
+
+/**
  * Transform a singleton page `body` into the template's ContentBlock[] shape.
  * Same logic as the article route's `toContentBlocks`; lives here so Olive Oil /
  * Residencies / About can reuse it. Order is preserved (it is the intended

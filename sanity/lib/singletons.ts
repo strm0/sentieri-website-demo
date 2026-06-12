@@ -8,6 +8,7 @@ export interface Singleton {
 
 export const SINGLETONS: Singleton[] = [
   { id: 'winePage', type: 'winePage', title: 'Wine' },
+  { id: 'oliveOilPage', type: 'oliveOilPage', title: 'Olive oil' },
 ]
 
 export const SINGLETON_TYPES = new Set(SINGLETONS.map((s) => s.type))
